@@ -30,14 +30,15 @@ SOURCES += \
     RenderableObjects/ballrenderable.cpp \
     RenderableObjects/renderable.cpp \
     RenderableObjects/surfacerenderable.cpp \
-    ShaderHandler/blackshader.cpp \
-    ShaderHandler/flatshader.cpp \
-    ShaderHandler/mainshader.cpp \
-    ShaderHandler/normalshader.cpp \
+    ShaderHandler/Implementations/blackshader.cpp \
+    ShaderHandler/Implementations/flatshader.cpp \
+    ShaderHandler/Implementations/mainshader.cpp \
+    ShaderHandler/Implementations/normalshader.cpp \
     parser/parser.cpp \
     parser/simplify.cpp \
     parser/print.cpp \
-    equationhandler.cpp
+    equationhandler.cpp \
+    ShaderHandler/shaderhandler.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -46,14 +47,15 @@ HEADERS += \
     RenderableObjects/ballrenderable.h \
     RenderableObjects/renderable.h \
     RenderableObjects/surfacerenderable.h \
-    ShaderHandler/blackshader.h \
-    ShaderHandler/flatshader.h \
-    ShaderHandler/mainshader.h \
-    ShaderHandler/normalshader.h \
+    ShaderHandler/Implementations/blackshader.h \
+    ShaderHandler/Implementations/flatshader.h \
+    ShaderHandler/Implementations/mainshader.h \
+    ShaderHandler/Implementations/normalshader.h \
     parser/parser.h \
     parser/simplify.h \
     parser/print.h \
-    equationhandler.h
+    equationhandler.h \
+    ShaderHandler/shaderhandler.h
 
 
 FORMS += \

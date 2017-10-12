@@ -3,10 +3,7 @@
 
 #include "RenderableObjects/axis.h"
 #include "RenderableObjects/ballrenderable.h"
-#include "ShaderHandler/blackshader.h"
-#include "ShaderHandler/flatshader.h"
-#include "ShaderHandler/mainshader.h"
-#include "ShaderHandler/normalshader.h"
+#include "ShaderHandler/shaderhandler.h"
 #include "parser/parser.h"
 #include "parser/print.h"
 #include "parser/simplify.h"
@@ -21,7 +18,6 @@
 
 class RenderList : public QOpenGLWidget
 {
-
 public:
   explicit RenderList(QWidget *parent = 0);
   virtual ~RenderList();
@@ -29,19 +25,14 @@ public:
   void initializeGL();
   void paintGL();
   void resizeGL(int w, int h);
-  void createShaders();
-  void render();
 
 private:
   QOpenGLFunctions_4_1_Core *m_glFunctions;
-  MainShader *m_mainShader;
-  BlackShader *m_blackShader;
-  FlatShader *m_flatshader;
-  NormalShader *m_normalShader;
+  ShaderHandler *m_shaderHandler;
 
   QVector3D m_lightPos;
-  unique_ptr<BallRenderable> ball;
-  unique_ptr<Axis> axis;
+  std::unique_ptr<Display::BallRenderable> ball;
+  std::unique_ptr<Display::Axis> axis;
   QMatrix4x4 m_projectionMatrix;
   float nsAngle = 0.0f;
   float ewAngle = 0.0f;

@@ -1,9 +1,9 @@
 #include "renderable.h"
 
-Renderable::Renderable()
+namespace Display
 {
-}
 
-Renderable::~Renderable()
-{
+  Renderable::Renderable() {}
+
+  Renderable::~Renderable() {}
 }

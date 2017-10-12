@@ -9,37 +9,39 @@
 #include <QWindow>
 #include <memory>
 
-using namespace std;
-
-class SurfaceRenderable : public Renderable
+namespace Display
 {
-public:
-  SurfaceRenderable();
-  ~SurfaceRenderable();
+  using namespace std;
 
-  void init(QOpenGLFunctions_4_1_Core *glFunctions) override;
-  void render(QOpenGLFunctions_4_1_Core *ui, QMatrix4x4 &projectionMatrix) override;
-  void load_obj(const char *filename);
+  class SurfaceRenderable : public Renderable
+  {
+  public:
+    SurfaceRenderable();
+    ~SurfaceRenderable();
 
-  QMatrix4x4 *modelViewMatrix() const;
-  void setModelViewMatrix(QMatrix4x4 *modelViewMatrix);
+    void init(QOpenGLFunctions_4_1_Core *glFunctions) override;
+    void render(QOpenGLFunctions_4_1_Core *ui, QMatrix4x4 &projectionMatrix) override;
+    void load_obj(const char *filename);
 
-protected:
-  void createBuffers(QOpenGLFunctions_4_1_Core *ui) override;
+    QMatrix4x4 *modelViewMatrix() const;
+    void setModelViewMatrix(QMatrix4x4 *modelViewMatrix);
 
-  unique_ptr<QVector<QVector3D>> m_vertices;
-  unique_ptr<QVector<QVector4D>> m_colors;
-  unique_ptr<QVector<QVector3D>> m_normals;
-  unique_ptr<QVector<unsigned int>> m_indices;
+  protected:
+    void createBuffers(QOpenGLFunctions_4_1_Core *ui) override;
 
-  void updateBuffers(QOpenGLFunctions_4_1_Core *ui);
+    unique_ptr<QVector<QVector3D>> m_vertices;
+    unique_ptr<QVector<QVector4D>> m_colors;
+    unique_ptr<QVector<QVector3D>> m_normals;
+    unique_ptr<QVector<unsigned int>> m_indices;
 
-  uint m_coordsBO;
-  uint m_colourBO;
-  uint m_normalBO;
-  uint m_indicesBO;
+    void updateBuffers(QOpenGLFunctions_4_1_Core *ui);
 
-  QMatrix4x4 *m_modelViewMatrix;
-};
+    uint m_coordsBO;
+    uint m_colourBO;
+    uint m_normalBO;
+    uint m_indicesBO;
 
+    QMatrix4x4 *m_modelViewMatrix;
+  };
+}
 #endif // SURFACERENDERABLE_H

@@ -13,12 +13,15 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "renderlist.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -26,7 +29,10 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
+    QHBoxLayout *horizontalLayout;
+    RenderList *openGLWidget;
     QMenuBar *menuBar;
+    QMenu *menuGopher;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -37,10 +43,21 @@ public:
         MainWindow->resize(400, 300);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        horizontalLayout = new QHBoxLayout(centralWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        openGLWidget = new RenderList(centralWidget);
+        openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
+
+        horizontalLayout->addWidget(openGLWidget);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 400, 22));
+        menuGopher = new QMenu(menuBar);
+        menuGopher->setObjectName(QStringLiteral("menuGopher"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -48,6 +65,8 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menuGopher->menuAction());
 
         retranslateUi(MainWindow);
 
@@ -57,6 +76,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        menuGopher->setTitle(QApplication::translate("MainWindow", "Gopher", Q_NULLPTR));
     } // retranslateUi
 
 };

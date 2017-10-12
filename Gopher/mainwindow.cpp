@@ -8,11 +8,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
   qDebug() << "MainWindow constructor";
 
   ui->setupUi(this);
-
-  RenderList *r = new RenderList(this);
-
-  r->resize(400, 400);
-  r->show();
 }
 
 MainWindow::~MainWindow()
