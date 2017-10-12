@@ -85,8 +85,6 @@ namespace Parser
     std::vector<std::string> arguments;
     ast syntax_tree;
   };
-  void print_tree(expression &expr);
-
   template <typename Iterator> struct exp_parser;
 }
 

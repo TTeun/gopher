@@ -7,16 +7,16 @@
 namespace Parser
 {
 
-  print_visitor::~print_visitor() { delete str; }
+  printVisitor::~printVisitor() { delete str; }
 
-  void print_visitor::operator()(nil &t) const
+  void printVisitor::operator()(nil &t) const
   {
     Q_UNUSED(t);
     qInfo() << "ERROR";
   }
-  void print_visitor::operator()(double &t) const { str->append(QString::number(t)); }
-  void print_visitor::operator()(std::string &t) const { str->append(t.c_str()); }
-  void print_visitor::operator()(binary_operation &t) const
+  void printVisitor::operator()(double &t) const { str->append(QString::number(t)); }
+  void printVisitor::operator()(std::string &t) const { str->append(t.c_str()); }
+  void printVisitor::operator()(binary_operation &t) const
   {
     str->append('(');
     boost::apply_visitor(*this, t.left.type);
@@ -29,7 +29,7 @@ namespace Parser
     boost::apply_visitor(*this, t.right.type);
     str->append(')');
   }
-  void print_visitor::operator()(unary_operation &t) const
+  void printVisitor::operator()(unary_operation &t) const
   {
     str->append(t.tag == UN_OP::MIN ? "-(" :
                                       t.tag == UN_OP::SIN ?
@@ -39,7 +39,7 @@ namespace Parser
     str->append(')');
   }
 
-  void print_tree(expression &expr)
+  void printTree(expression &expr)
   {
     QString str;
     str.append(expr.name.c_str());
@@ -50,7 +50,7 @@ namespace Parser
       str.append(" ");
     }
     qDebug() << str;
-    print_visitor p;
+    printVisitor p;
     boost::apply_visitor(p, expr.syntax_tree.type);
     qDebug() << *(p.str);
   }

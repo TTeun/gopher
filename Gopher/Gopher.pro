@@ -34,7 +34,9 @@ SOURCES += \
     gldisplay.cpp \
     RenderableObjects/displayobjects.cpp \
     ShaderHandler/Implementations/shaderprogram.cpp \
-    parser/collapse.cpp
+    parser/collapse.cpp \
+    parser/partialcollapse.cpp \
+    parser/equalityvisitor.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -47,7 +49,9 @@ HEADERS += \
     gldisplay.h \
     RenderableObjects/displayobjects.h \
     ShaderHandler/Implementations/shaderprogram.h \
-    parser/collapse.h
+    parser/collapse.h \
+    parser/partialcollapse.h \
+    parser/equalityvisitor.h
 
 
 FORMS += \

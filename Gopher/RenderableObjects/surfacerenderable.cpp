@@ -5,6 +5,7 @@
 
 #include "parser/collapse.h"
 #include "parser/parser.h"
+#include "parser/partialcollapse.h"
 #include "parser/print.h"
 
 namespace Surface
@@ -218,7 +219,8 @@ namespace Surface
                                         expr))
     {
       expr.syntax_tree.type = Parser::collapse(expr);
-      Parser::print_tree(expr);
+      //      expr.syntax_tree.type = Parser::partial_collapse(expr, string("u"), 0.0);
+      Parser::printTree(expr);
     }
     else
     {

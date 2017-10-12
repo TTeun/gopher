@@ -8,10 +8,10 @@ struct expression;
 
 namespace Parser
 {
-  class print_visitor
+  class printVisitor
   {
   public:
-    ~print_visitor();
+    ~printVisitor();
     void operator()(nil &t) const;
     void operator()(double &t) const;
     void operator()(std::string &t) const;
@@ -21,7 +21,7 @@ namespace Parser
     QString *str = new QString;
   };
 
-  void print_tree(expression &expr);
+  void printTree(expression &expr);
 }
 
 #endif // PRINT_H

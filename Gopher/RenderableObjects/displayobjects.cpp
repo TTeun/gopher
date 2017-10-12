@@ -15,7 +15,7 @@ namespace Surface
     m_ball->init(glFunctons);
     m_ball->createBall(1);
 
-    string func1("f(uu,vv) = 1+2 + uu + uu + cos(uu)");
+    string func1("f(u,v) = 0 + u + 0 + 0 * u + 1  *u ^ 1");
     string func2("u^2 + v");
 
     m_ball->fillParametric(func1, func2);
