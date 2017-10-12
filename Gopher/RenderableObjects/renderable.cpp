@@ -3,7 +3,11 @@
 namespace Surface
 {
 
-  Renderable::Renderable() {}
+  Renderable::Renderable()
+  {
+  }
 
-  Renderable::~Renderable() {}
+  Renderable::~Renderable()
+  {
+  }
 }

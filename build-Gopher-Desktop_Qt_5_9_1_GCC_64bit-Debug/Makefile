@@ -62,8 +62,7 @@ SOURCES       = ../Gopher/main.cpp \
 		../Gopher/RenderableObjects/displayobjects.cpp \
 		../Gopher/ShaderHandler/Implementations/shaderprogram.cpp \
 		../Gopher/parser/collapse.cpp \
-		../Gopher/parser/partialcollapse.cpp \
-		../Gopher/parser/equalityvisitor.cpp qrc_resources.cpp \
+		../Gopher/parser/partialcollapse.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
@@ -78,7 +77,6 @@ OBJECTS       = main.o \
 		shaderprogram.o \
 		collapse.o \
 		partialcollapse.o \
-		equalityvisitor.o \
 		qrc_resources.o \
 		moc_mainwindow.o
 DIST          = ../../../../qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
@@ -271,8 +269,7 @@ DIST          = ../../../../qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../Gopher/RenderableObjects/displayobjects.h \
 		../Gopher/ShaderHandler/Implementations/shaderprogram.h \
 		../Gopher/parser/collapse.h \
-		../Gopher/parser/partialcollapse.h \
-		../Gopher/parser/equalityvisitor.h ../Gopher/main.cpp \
+		../Gopher/parser/partialcollapse.h ../Gopher/main.cpp \
 		../Gopher/mainwindow.cpp \
 		../Gopher/RenderableObjects/axis.cpp \
 		../Gopher/RenderableObjects/renderable.cpp \
@@ -284,8 +281,7 @@ DIST          = ../../../../qt/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../Gopher/RenderableObjects/displayobjects.cpp \
 		../Gopher/ShaderHandler/Implementations/shaderprogram.cpp \
 		../Gopher/parser/collapse.cpp \
-		../Gopher/parser/partialcollapse.cpp \
-		../Gopher/parser/equalityvisitor.cpp
+		../Gopher/parser/partialcollapse.cpp
 QMAKE_TARGET  = Gopher
 DESTDIR       = 
 TARGET        = Gopher
@@ -684,8 +680,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../Gopher/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../qt/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Gopher/mainwindow.h ../Gopher/RenderableObjects/axis.h ../Gopher/RenderableObjects/renderable.h ../Gopher/RenderableObjects/surfacerenderable.h ../Gopher/parser/parser.h ../Gopher/parser/print.h ../Gopher/ShaderHandler/shaderhandler.h ../Gopher/gldisplay.h ../Gopher/RenderableObjects/displayobjects.h ../Gopher/ShaderHandler/Implementations/shaderprogram.h ../Gopher/parser/collapse.h ../Gopher/parser/partialcollapse.h ../Gopher/parser/equalityvisitor.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Gopher/main.cpp ../Gopher/mainwindow.cpp ../Gopher/RenderableObjects/axis.cpp ../Gopher/RenderableObjects/renderable.cpp ../Gopher/RenderableObjects/surfacerenderable.cpp ../Gopher/parser/parser.cpp ../Gopher/parser/print.cpp ../Gopher/ShaderHandler/shaderhandler.cpp ../Gopher/gldisplay.cpp ../Gopher/RenderableObjects/displayobjects.cpp ../Gopher/ShaderHandler/Implementations/shaderprogram.cpp ../Gopher/parser/collapse.cpp ../Gopher/parser/partialcollapse.cpp ../Gopher/parser/equalityvisitor.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Gopher/mainwindow.h ../Gopher/RenderableObjects/axis.h ../Gopher/RenderableObjects/renderable.h ../Gopher/RenderableObjects/surfacerenderable.h ../Gopher/parser/parser.h ../Gopher/parser/print.h ../Gopher/ShaderHandler/shaderhandler.h ../Gopher/gldisplay.h ../Gopher/RenderableObjects/displayobjects.h ../Gopher/ShaderHandler/Implementations/shaderprogram.h ../Gopher/parser/collapse.h ../Gopher/parser/partialcollapse.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Gopher/main.cpp ../Gopher/mainwindow.cpp ../Gopher/RenderableObjects/axis.cpp ../Gopher/RenderableObjects/renderable.cpp ../Gopher/RenderableObjects/surfacerenderable.cpp ../Gopher/parser/parser.cpp ../Gopher/parser/print.cpp ../Gopher/ShaderHandler/shaderhandler.cpp ../Gopher/gldisplay.cpp ../Gopher/RenderableObjects/displayobjects.cpp ../Gopher/ShaderHandler/Implementations/shaderprogram.cpp ../Gopher/parser/collapse.cpp ../Gopher/parser/partialcollapse.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Gopher/mainwindow.ui $(DISTDIR)/
 
 
@@ -2198,9 +2194,6 @@ partialcollapse.o: ../Gopher/parser/partialcollapse.cpp ../Gopher/parser/partial
 		../Gopher/parser/parser.h \
 		../Gopher/parser/collapse.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o partialcollapse.o ../Gopher/parser/partialcollapse.cpp
-
-equalityvisitor.o: ../Gopher/parser/equalityvisitor.cpp ../Gopher/parser/equalityvisitor.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o equalityvisitor.o ../Gopher/parser/equalityvisitor.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

@@ -1,5 +1,4 @@
 #include "collapse.h"
-#include "print.h"
 #include <QDebug>
 
 namespace Parser
@@ -52,16 +51,25 @@ namespace Parser
     return 0;
   }
 
-  ast collapseVisitor::operator()(nil &t) const { return t; }
-  ast collapseVisitor::operator()(double &t) const { return t; }
-  ast collapseVisitor::operator()(std::string &t) const { return t; }
+  ast collapseVisitor::operator()(nil &t) const
+  {
+    return t;
+  }
+  ast collapseVisitor::operator()(double &t) const
+  {
+    return t;
+  }
+  ast collapseVisitor::operator()(std::string &t) const
+  {
+    return t;
+  }
   ast collapseVisitor::operator()(binary_operation &t) const
   {
     t.left.type  = boost::apply_visitor(*this, t.left.type).type;
     t.right.type = boost::apply_visitor(*this, t.right.type).type;
 
-    isNum l_val = l_val = boost::apply_visitor(isNumVisitor{}, t.left.type);
-    isNum r_val         = boost::apply_visitor(isNumVisitor{}, t.right.type);
+    isNum l_val = boost::apply_visitor(isNumVisitor{}, t.left.type);
+    isNum r_val = boost::apply_visitor(isNumVisitor{}, t.right.type);
 
     if (l_val.is_a_number && r_val.is_a_number)
       return get_val(l_val.value, r_val.value, t.tag);
@@ -94,6 +102,27 @@ namespace Parser
       }
     }
 
+    if (t.left.type == t.right.type)
+    {
+      switch (t.tag)
+      {
+      case BIN_OP::SUB:
+        return 0.0;
+        break;
+      case BIN_OP::ADD:
+        return binary_operation(BIN_OP::MUL, 2.0, t.right.type);
+        break;
+      case BIN_OP::MUL:
+        return binary_operation(BIN_OP::POW, t.right.type, 2.0);
+        break;
+      case BIN_OP::DIV:
+        return 1.0;
+        break;
+      default:
+        break;
+      }
+    }
+
     return t;
   }
   ast collapseVisitor::operator()(unary_operation &t) const
@@ -109,8 +138,8 @@ namespace Parser
     return t;
   }
 
-  ast::ast_type collapse(expression &expr)
+  ast::ast_type collapse(ast::ast_type &type)
   {
-    return boost::apply_visitor(collapseVisitor{}, expr.syntax_tree.type).type;
+    return boost::apply_visitor(collapseVisitor{}, type).type;
   }
 }

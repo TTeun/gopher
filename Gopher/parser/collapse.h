@@ -2,6 +2,7 @@
 #define COLLAPSE_H
 
 #include "parser.h"
+#include <QtGlobal>
 
 namespace Parser
 {
@@ -22,11 +23,30 @@ namespace Parser
     isNum operator()(unary_operation &t) const;
   };
 
-  inline isNum isNumVisitor::operator()(nil &t) const { return isNum(); }
-  inline isNum isNumVisitor::operator()(double t) const { return {true, t}; }
-  inline isNum isNumVisitor::operator()(std::string &t) const { return isNum(); }
-  inline isNum isNumVisitor::operator()(binary_operation &t) const { return isNum(); }
-  inline isNum isNumVisitor::operator()(unary_operation &t) const { return isNum(); }
+  inline isNum isNumVisitor::operator()(nil &t) const
+  {
+    Q_UNUSED(t);
+    return isNum();
+  }
+  inline isNum isNumVisitor::operator()(double t) const
+  {
+    return {true, t};
+  }
+  inline isNum isNumVisitor::operator()(std::string &t) const
+  {
+    Q_UNUSED(t);
+    return isNum();
+  }
+  inline isNum isNumVisitor::operator()(binary_operation &t) const
+  {
+    Q_UNUSED(t);
+    return isNum();
+  }
+  inline isNum isNumVisitor::operator()(unary_operation &t) const
+  {
+    Q_UNUSED(t);
+    return isNum();
+  }
 
   double get_val(double l, double r, BIN_OP t);
   double get_val(double val, UN_OP t);
@@ -41,7 +61,7 @@ namespace Parser
     ast operator()(unary_operation &t) const;
   };
 
-  ast::ast_type collapse(expression &expr);
+  ast::ast_type collapse(ast::ast_type &type);
 }
 
 #endif // COLLAPSE_H

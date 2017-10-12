@@ -35,8 +35,7 @@ SOURCES += \
     RenderableObjects/displayobjects.cpp \
     ShaderHandler/Implementations/shaderprogram.cpp \
     parser/collapse.cpp \
-    parser/partialcollapse.cpp \
-    parser/equalityvisitor.cpp
+    parser/partialcollapse.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -50,8 +49,7 @@ HEADERS += \
     RenderableObjects/displayobjects.h \
     ShaderHandler/Implementations/shaderprogram.h \
     parser/collapse.h \
-    parser/partialcollapse.h \
-    parser/equalityvisitor.h
+    parser/partialcollapse.h
 
 
 FORMS += \

@@ -1,11 +1,11 @@
 #ifndef PARSER__H
 #define PARSER__H
 
+#include <QtGlobal>
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <boost/spirit/include/phoenix.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/variant/variant.hpp>
-
 #include <string>
 #include <vector>
 
@@ -36,6 +36,11 @@ namespace Parser
   struct unary_operation;
   struct nil
   {
+    bool operator==(nil const &rhs) const
+    {
+      Q_UNUSED(rhs);
+      return true;
+    }
   };
 
   struct ast
@@ -53,9 +58,13 @@ namespace Parser
     ast &operator/=(ast const &rhs);
     ast &operator^=(ast const &rhs);
 
-    ast() : type(nil()) {} // Error state
+    ast() : type(nil())
+    {
+    } // Error state
 
-    template <typename Expr> ast(Expr const &type) : type(type) {}
+    template <typename Expr> ast(Expr const &type) : type(type)
+    {
+    }
 
     ast_type type;
   };
@@ -69,6 +78,10 @@ namespace Parser
     binary_operation(BIN_OP _tag, ast const &_left, ast const &_right) : tag(_tag), left(_left), right(_right)
     {
     }
+    bool operator==(binary_operation const &rhs) const
+    {
+      return (rhs.left.type == this->left.type && rhs.right.type == this->right.type && rhs.tag == tag);
+    }
   };
 
   struct unary_operation
@@ -76,7 +89,13 @@ namespace Parser
     UN_OP tag;
     ast tree;
 
-    unary_operation(UN_OP _tag, ast const &_tree) : tag(_tag), tree(_tree) {}
+    unary_operation(UN_OP _tag, ast const &_tree) : tag(_tag), tree(_tree)
+    {
+    }
+    bool operator==(unary_operation const &rhs) const
+    {
+      return (rhs.tree.type == this->tree.type && rhs.tag == tag);
+    }
   };
 
   struct expression
@@ -94,7 +113,10 @@ namespace Parser
 {
   template <typename Iterator> struct exp_parser : qi::grammar<Iterator, expression(), ascii::space_type>
   {
-    static ast make_unary(UN_OP op, ast const &tree) { return unary_operation(op, tree); }
+    static ast make_unary(UN_OP op, ast const &tree)
+    {
+      return unary_operation(op, tree);
+    }
     exp_parser() : exp_parser::base_type(all)
     {
       using qi::_val;

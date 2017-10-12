@@ -2,6 +2,7 @@
 #define PARTIALCOLLAPE_H
 
 #include "parser.h"
+#include <tuple>
 
 namespace Parser
 {
@@ -20,7 +21,8 @@ namespace Parser
     double value;
   };
 
-  ast::ast_type partial_collapse(expression &expr, std::string var, double value);
+  ast::ast_type partialCollapse(ast::ast_type &type, std::string var, double value);
+  double eval(ast::ast_type &type, std::pair<std::string, double> val1, std::pair<std::string, double> val2);
 };
 
 #endif // PARTIALCOLLAPE_H

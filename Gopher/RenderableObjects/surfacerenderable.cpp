@@ -22,9 +22,14 @@ namespace Surface
   {
   }
 
-  SurfaceRenderable::~SurfaceRenderable() {}
+  SurfaceRenderable::~SurfaceRenderable()
+  {
+  }
 
-  void SurfaceRenderable::init(QOpenGLFunctions_4_1_Core *glFunctions) { createBuffers(glFunctions); }
+  void SurfaceRenderable::init(QOpenGLFunctions_4_1_Core *glFunctions)
+  {
+    createBuffers(glFunctions);
+  }
 
   void SurfaceRenderable::render(QOpenGLFunctions_4_1_Core *glFunctions)
   {
@@ -83,7 +88,10 @@ namespace Surface
                               GL_DYNAMIC_DRAW);
   }
 
-  QMatrix4x4 *SurfaceRenderable::modelViewMatrix() const { return m_modelViewMatrix; }
+  QMatrix4x4 *SurfaceRenderable::modelViewMatrix() const
+  {
+    return m_modelViewMatrix;
+  }
 
   void SurfaceRenderable::setModelViewMatrix(QMatrix4x4 *modelViewMatrix)
   {
@@ -122,7 +130,7 @@ namespace Surface
           s >> a;
           t_indices.append(a - 1);
         }
-        for (size_t i = 2; i < t_indices.size(); ++i)
+        for (int i = 2; i < t_indices.size(); ++i)
         {
           m_indices->append(t_indices[0]);
           m_indices->append(t_indices[i - 1]);
@@ -191,7 +199,7 @@ namespace Surface
       }
     }
 
-    for (size_t i = 0; i != m_vertices->size(); ++i)
+    for (int i = 0; i != m_vertices->size(); ++i)
     {
       m_colors->append(QVector4D(0.2, 0.2, 0.2, 0.2));
       m_normals->append(m_vertices->at(i).normalized());
@@ -218,8 +226,11 @@ namespace Surface
                                         boost::spirit::ascii::space,
                                         expr))
     {
-      expr.syntax_tree.type = Parser::collapse(expr);
-      //      expr.syntax_tree.type = Parser::partial_collapse(expr, string("u"), 0.0);
+      double val;
+      expr.syntax_tree.type = Parser::collapse(expr.syntax_tree.type);
+      for (size_t i = 0; i != 10000; ++i)
+        val = Parser::eval(expr.syntax_tree.type, make_pair("u", 1.0), make_pair("v", 1.0));
+      //      expr.syntax_tree.type = Parser::partialCollapse(expr.syntax_tree.type, string("u"), 0.0);
       Parser::printTree(expr);
     }
     else
