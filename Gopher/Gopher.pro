@@ -25,7 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    renderlist.cpp \
     RenderableObjects/axis.cpp \
     RenderableObjects/ballrenderable.cpp \
     RenderableObjects/renderable.cpp \
@@ -38,11 +37,11 @@ SOURCES += \
     parser/simplify.cpp \
     parser/print.cpp \
     equationhandler.cpp \
-    ShaderHandler/shaderhandler.cpp
+    ShaderHandler/shaderhandler.cpp \
+    globjects.cpp
 
 HEADERS += \
     mainwindow.h \
-    renderlist.h \
     RenderableObjects/axis.h \
     RenderableObjects/ballrenderable.h \
     RenderableObjects/renderable.h \
@@ -55,7 +54,8 @@ HEADERS += \
     parser/simplify.h \
     parser/print.h \
     equationhandler.h \
-    ShaderHandler/shaderhandler.h
+    ShaderHandler/shaderhandler.h \
+    globjects.h
 
 
 FORMS += \

@@ -45,7 +45,7 @@ namespace Display
 
   void Axis::init(QOpenGLFunctions_4_1_Core *glFunctions) { createBuffers(glFunctions); }
 
-  void Axis::render(QOpenGLFunctions_4_1_Core *glFunctions, QMatrix4x4 &projectionMatrix)
+  void Axis::render(QOpenGLFunctions_4_1_Core *glFunctions)
   {
     glFunctions->glBindVertexArray(m_vao);
 

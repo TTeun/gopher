@@ -19,7 +19,7 @@ namespace Display
 
   void SurfaceRenderable::init(QOpenGLFunctions_4_1_Core *glFunctions) { createBuffers(glFunctions); }
 
-  void SurfaceRenderable::render(QOpenGLFunctions_4_1_Core *glFunctions, QMatrix4x4 &projectionMatrix)
+  void SurfaceRenderable::render(QOpenGLFunctions_4_1_Core *glFunctions)
   {
     glFunctions->glBindVertexArray(m_vao);
 

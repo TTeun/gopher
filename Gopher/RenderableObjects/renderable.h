@@ -13,7 +13,7 @@ namespace Display
     Renderable();
     ~Renderable();
 
-    virtual void render(QOpenGLFunctions_4_1_Core *ui, QMatrix4x4 &projectionMatrix) = 0;
+    virtual void render(QOpenGLFunctions_4_1_Core *ui)        = 0;
     virtual void init(QOpenGLFunctions_4_1_Core *glFunctions) = 0;
 
   protected:

@@ -1,24 +1,21 @@
-#include "renderlist.h"
+#include "globjects.h"
 #include "equationhandler.h"
 #include <QPushButton>
 #include <string>
 
 using namespace Display;
+using namespace Shader;
 
-RenderList::RenderList(QWidget *parent)
-    : QOpenGLWidget(parent),
-      m_shaderHandler(new ShaderHandler(this)),
-      ball(new BallRenderable()),
-      axis(new Axis())
+GLObjects::GLObjects(QWidget *parent) : QOpenGLWidget(parent), ball(new BallRenderable()), axis(new Axis())
 {
   m_lightPos = QVector3D(0.0, 0.0, -4.0);
 }
 
-RenderList::~RenderList()
+GLObjects::~GLObjects()
 {
 }
 
-void RenderList::initializeGL()
+void GLObjects::initializeGL()
 {
   qDebug() << "init GL";
   m_glFunctions = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_4_1_Core>(),
@@ -50,7 +47,7 @@ void RenderList::initializeGL()
   }
 }
 
-void RenderList::paintGL()
+void GLObjects::paintGL()
 {
   const qreal retinaScale = devicePixelRatio();
   glViewport(0, 0, width() * retinaScale, height() * retinaScale);
@@ -63,15 +60,12 @@ void RenderList::paintGL()
   m_projectionMatrix.rotate(nsAngle, 1, 0, 0);
   m_projectionMatrix.rotate(ewAngle, 0, 1, 0);
 
-  nsAngle += 2;
-  ewAngle += 1;
-
   glEnable(GL_BLEND);
   m_shaderHandler->mainShader()->bind();
   m_shaderHandler->mainShader()->updateUniforms(m_projectionMatrix, *ball->modelViewMatrix());
   //  glEnable(GL_CULL_FACE);
   //  glCullFace(GL_FRONT);
-  ball->render(m_glFunctions, m_projectionMatrix);
+  ball->render(m_glFunctions);
 
   glDisable(GL_BLEND);
   //  m_normalShader->bind();
@@ -80,13 +74,25 @@ void RenderList::paintGL()
 
   m_shaderHandler->blackShader()->bind();
   m_shaderHandler->blackShader()->updateUniforms(m_projectionMatrix, *ball->modelViewMatrix());
-  ball->renderSkeleton(m_glFunctions, m_projectionMatrix);
+  ball->renderSkeleton(m_glFunctions);
 
   m_shaderHandler->flatshader()->bind();
   m_shaderHandler->flatshader()->updateUniforms(m_projectionMatrix, *ball->modelViewMatrix());
-  axis->render(m_glFunctions, m_projectionMatrix);
+  axis->render(m_glFunctions);
 }
 
-void RenderList::resizeGL(int w, int h)
+void GLObjects::resizeGL(int w, int h)
 {
+  Q_UNUSED(w);
+  Q_UNUSED(h);
+}
+
+ShaderHandler *GLObjects::shaderHandler() const
+{
+  return m_shaderHandler;
+}
+
+void GLObjects::setShaderHandler(Shader::ShaderHandler *shaderHandler)
+{
+  m_shaderHandler = shaderHandler;
 }

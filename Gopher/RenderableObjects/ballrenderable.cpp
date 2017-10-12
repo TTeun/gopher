@@ -69,7 +69,7 @@ namespace Display
     }
   }
 
-  void BallRenderable::renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions, QMatrix4x4 &projectionMatrix)
+  void BallRenderable::renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions)
   {
     glFunctions->glBindVertexArray(m_vao);
 

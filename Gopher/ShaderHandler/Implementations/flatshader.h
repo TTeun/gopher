@@ -3,17 +3,19 @@
 
 #include <QOpenGLShaderProgram>
 
-class FlatShader : public QOpenGLShaderProgram
+namespace Shader
 {
-public:
-  FlatShader(QObject *parent = 0);
+  class FlatShader : public QOpenGLShaderProgram
+  {
+  public:
+    FlatShader(QObject *parent = 0);
 
-  void init();
-  void updateUniforms(QMatrix4x4 &projectionMatrix, QMatrix4x4 &modelViewMatrix);
+    void init();
+    void updateUniforms(QMatrix4x4 &projectionMatrix, QMatrix4x4 &modelViewMatrix);
 
-private:
-  GLint m_projecionMatrixUniform;
-  GLint m_modelViewMatrixUniform;
-};
-
+  private:
+    GLint m_projecionMatrixUniform;
+    GLint m_modelViewMatrixUniform;
+  };
+}
 #endif // FLATSHADER_H

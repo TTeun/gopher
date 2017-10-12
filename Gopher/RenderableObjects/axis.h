@@ -13,7 +13,7 @@ namespace Display
     Axis();
     ~Axis();
 
-    virtual void render(QOpenGLFunctions_4_1_Core *glFunctions, QMatrix4x4 &projectionMatrix);
+    virtual void render(QOpenGLFunctions_4_1_Core *glFunctions);
     virtual void init(QOpenGLFunctions_4_1_Core *glFunctions);
 
   protected:

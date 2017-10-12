@@ -16,19 +16,22 @@
 #include <QtGui/QScreen>
 #include <memory>
 
-class RenderList : public QOpenGLWidget
+class GLObjects : public QOpenGLWidget
 {
 public:
-  explicit RenderList(QWidget *parent = 0);
-  virtual ~RenderList();
+  explicit GLObjects(QWidget *parent = 0);
+  virtual ~GLObjects();
 
   void initializeGL();
   void paintGL();
   void resizeGL(int w, int h);
 
+  Shader::ShaderHandler *shaderHandler() const;
+  void setShaderHandler(Shader::ShaderHandler *shaderHandler);
+
 private:
   QOpenGLFunctions_4_1_Core *m_glFunctions;
-  ShaderHandler *m_shaderHandler;
+  Shader::ShaderHandler *m_shaderHandler;
 
   QVector3D m_lightPos;
   std::unique_ptr<Display::BallRenderable> ball;

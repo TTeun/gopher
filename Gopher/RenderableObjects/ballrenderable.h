@@ -15,7 +15,7 @@ namespace Display
     void setRadius(float _r);
     void setCenter(QVector3D &_c);
     void create();
-    void renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions, QMatrix4x4 &projectionMatrix);
+    void renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions);
 
   private:
     float m_radius = 1;

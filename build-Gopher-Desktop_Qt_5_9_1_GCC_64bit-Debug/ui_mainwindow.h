@@ -21,7 +21,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
-#include "renderlist.h"
+#include "globjects.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -30,7 +30,7 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
-    RenderList *openGLWidget;
+    GLObjects *openGLWidget;
     QMenuBar *menuBar;
     QMenu *menuGopher;
     QToolBar *mainToolBar;
@@ -47,7 +47,7 @@ public:
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        openGLWidget = new RenderList(centralWidget);
+        openGLWidget = new GLObjects(centralWidget);
         openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
 
         horizontalLayout->addWidget(openGLWidget);

@@ -20,7 +20,7 @@ namespace Display
     ~SurfaceRenderable();
 
     void init(QOpenGLFunctions_4_1_Core *glFunctions) override;
-    void render(QOpenGLFunctions_4_1_Core *ui, QMatrix4x4 &projectionMatrix) override;
+    void render(QOpenGLFunctions_4_1_Core *ui) override;
     void load_obj(const char *filename);
 
     QMatrix4x4 *modelViewMatrix() const;
