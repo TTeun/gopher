@@ -13,7 +13,7 @@ namespace qi      = boost::spirit::qi;
 namespace ascii   = boost::spirit::ascii;
 namespace phoenix = boost::phoenix;
 
-namespace client
+namespace Parser
 {
   enum class BIN_OP
   {
@@ -90,9 +90,9 @@ namespace client
   template <typename Iterator> struct exp_parser;
 }
 
-BOOST_FUSION_ADAPT_STRUCT(client::expression, name, arguments, syntax_tree)
+BOOST_FUSION_ADAPT_STRUCT(Parser::expression, name, arguments, syntax_tree)
 
-namespace client
+namespace Parser
 {
   template <typename Iterator> struct exp_parser : qi::grammar<Iterator, expression(), ascii::space_type>
   {

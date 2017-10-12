@@ -3,8 +3,14 @@
 #include <fstream>
 #include <sstream>
 
-namespace Display
+#include "parser/collapse.h"
+#include "parser/parser.h"
+#include "parser/print.h"
+
+namespace Surface
 {
+
+  using namespace std;
 
   SurfaceRenderable::SurfaceRenderable()
       : m_vertices(new QVector<QVector3D>()),
@@ -197,5 +203,26 @@ namespace Display
 
     updateBuffers(glFunctions);
     glFunctions->glDrawElements(GL_LINES, m_indices->size(), GL_UNSIGNED_INT, 0);
+  }
+
+  void SurfaceRenderable::fillParametric(std::string &func1, std::string &func2)
+  {
+    auto first = func1.begin();
+    auto end   = func1.end();
+    auto expr  = Parser::expression();
+
+    if (boost::spirit::qi::phrase_parse(first,
+                                        end,
+                                        Parser::exp_parser<std::string::iterator>{} >> qi::eoi,
+                                        boost::spirit::ascii::space,
+                                        expr))
+    {
+      expr.syntax_tree.type = Parser::collapse(expr);
+      Parser::print_tree(expr);
+    }
+    else
+    {
+      qDebug() << "Parse failed";
+    }
   }
 }

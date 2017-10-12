@@ -1,9 +1,8 @@
 #include "gldisplay.h"
-#include "equationhandler.h"
 #include <QPushButton>
 #include <string>
 
-using namespace Display;
+using namespace Surface;
 using namespace Shader;
 
 GLDisplay::GLDisplay(QWidget *parent) : QOpenGLWidget(parent), m_displayObjects(new DisplayObjects())
@@ -31,18 +30,6 @@ void GLDisplay::initializeGL()
 
   m_shaderHandler->createShaders();
   m_displayObjects->init(m_glFunctions);
-
-  std::string str = "f(x) = x + 2";
-  auto first      = str.begin();
-  auto end        = str.end();
-  auto expr       = client::expression();
-  bool r          = boost::spirit::qi::phrase_parse(
-      first, end, client::exp_parser<std::string::iterator>{} >> qi::eoi, boost::spirit::ascii::space, expr);
-
-  if (r)
-  {
-    client::print_tree(expr);
-  }
 }
 
 void GLDisplay::paintGL()
@@ -52,6 +39,69 @@ void GLDisplay::paintGL()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glClearColor(1.0, 1.0, 1.0, 1.0);
 
+  if (uniformsNeedUpdate)
+    updateUniforms();
+
+  glEnable(GL_BLEND);
+  m_shaderHandler->bind(SHADER_TYPES::FLAT);
+  m_displayObjects->ball()->render(m_glFunctions);
+
+  glDisable(GL_BLEND);
+  //  m_shaderHandler->bind(SHADER_TYPES::NORMAL);
+  //  m_displayObjects->ball()->render(m_glFunctions);
+
+  m_shaderHandler->bind(SHADER_TYPES::BLACK);
+  m_displayObjects->ball()->renderSkeleton(m_glFunctions);
+
+  m_shaderHandler->bind(SHADER_TYPES::FLAT);
+  m_displayObjects->axis()->render(m_glFunctions);
+}
+
+void GLDisplay::resizeGL(int w, int h)
+{
+  uniformsNeedUpdate = true;
+  update();
+  Q_UNUSED(w);
+  Q_UNUSED(h);
+}
+
+void GLDisplay::setShaderHandler(Shader::ShaderHandler *shaderHandler)
+{
+  m_shaderHandler = shaderHandler;
+}
+
+void GLDisplay::keyPressEvent(QKeyEvent *event)
+{
+  qDebug() << "keu";
+  switch (event->key())
+  {
+  case Qt::Key_Up:
+    --nsAngle;
+    break;
+  case Qt::Key_Down:
+    ++nsAngle;
+    break;
+  case Qt::Key_Right:
+    ++ewAngle;
+    break;
+  case Qt::Key_Left:
+    --ewAngle;
+    break;
+  default:
+    break;
+  }
+  uniformsNeedUpdate = true;
+  update();
+}
+
+void GLDisplay::mousePressEvent(QMouseEvent *event)
+{
+  setFocus();
+  qDebug() << "Mouse click";
+}
+
+void GLDisplay::updateUniforms()
+{
   m_projectionMatrix.setToIdentity();
   m_projectionMatrix.perspective(80.0f, width() / static_cast<float>(height()), 0.1f, 100.0f);
   m_projectionMatrix.translate(0, 0, -3);
@@ -59,36 +109,6 @@ void GLDisplay::paintGL()
   m_projectionMatrix.rotate(ewAngle, 0, 1, 0);
 
   m_shaderHandler->updateUniforms(m_projectionMatrix, *m_displayObjects->ball()->modelViewMatrix());
-  glEnable(GL_BLEND);
-  m_shaderHandler->mainShader()->bind();
-  //  glEnable(GL_CULL_FACE);
-  //  glCullFace(GL_FRONT);
-  m_displayObjects->ball()->render(m_glFunctions);
 
-  glDisable(GL_BLEND);
-  //  m_normalShader->bind();
-  //  m_normalShader->updateUniforms(m_projectionMatrix, *ball->modelViewMatrix());
-  //  ball->render(m_glFunctions, m_projectionMatrix);
-
-  m_shaderHandler->blackShader()->bind();
-  m_displayObjects->ball()->renderSkeleton(m_glFunctions);
-
-  m_shaderHandler->flatshader()->bind();
-  m_displayObjects->axis()->render(m_glFunctions);
-}
-
-void GLDisplay::resizeGL(int w, int h)
-{
-  Q_UNUSED(w);
-  Q_UNUSED(h);
-}
-
-ShaderHandler *GLDisplay::shaderHandler() const
-{
-  return m_shaderHandler;
-}
-
-void GLDisplay::setShaderHandler(Shader::ShaderHandler *shaderHandler)
-{
-  m_shaderHandler = shaderHandler;
+  uniformsNeedUpdate = false;
 }

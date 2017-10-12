@@ -5,7 +5,7 @@
 #include <QMatrix4x4>
 #include <memory>
 
-namespace Display
+namespace Surface
 {
   class Axis : public Renderable
   {

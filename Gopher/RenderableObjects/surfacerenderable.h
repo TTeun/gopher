@@ -8,10 +8,16 @@
 #include <QVector>
 #include <QWindow>
 #include <memory>
+#include <string>
 
-namespace Display
+namespace Surface
 {
-  using namespace std;
+  enum DISPLAY_TYPES
+  {
+    SURFACE = 1,
+    POINTS  = 2,
+    LINES   = 4
+  };
 
   class SurfaceRenderable : public Renderable
   {
@@ -24,6 +30,7 @@ namespace Display
     void load_obj(const char *filename);
     void createBall(float radius);
     void renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions);
+    void fillParametric(std::string &func1, std::string &func2);
 
     QMatrix4x4 *modelViewMatrix() const;
     void setModelViewMatrix(QMatrix4x4 *modelViewMatrix);
@@ -31,10 +38,10 @@ namespace Display
   protected:
     void createBuffers(QOpenGLFunctions_4_1_Core *ui) override;
 
-    unique_ptr<QVector<QVector3D>> m_vertices;
-    unique_ptr<QVector<QVector4D>> m_colors;
-    unique_ptr<QVector<QVector3D>> m_normals;
-    unique_ptr<QVector<unsigned int>> m_indices;
+    std::unique_ptr<QVector<QVector3D>> m_vertices;
+    std::unique_ptr<QVector<QVector4D>> m_colors;
+    std::unique_ptr<QVector<QVector3D>> m_normals;
+    std::unique_ptr<QVector<unsigned int>> m_indices;
 
     void updateBuffers(QOpenGLFunctions_4_1_Core *ui);
 

@@ -14,5 +14,5 @@ float scale (float a){
 
 void main() {
     float theta = dot( normalize(-in_normal), normalize(lightPos - in_coords));
-    fColor = vec4(scale(theta + 0.2) * in_colour.rgb, in_colour.a);
+    fColor = vec4(scale(theta) * in_colour.rgb, in_colour.a);
 }

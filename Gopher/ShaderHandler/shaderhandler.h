@@ -1,34 +1,36 @@
 #ifndef SHADERHANDLER_H
 #define SHADERHANDLER_H
 
-#include "ShaderHandler/Implementations/blackshader.h"
-#include "ShaderHandler/Implementations/flatshader.h"
-#include "ShaderHandler/Implementations/mainshader.h"
-#include "ShaderHandler/Implementations/normalshader.h"
+#include "ShaderHandler/Implementations/shaderprogram.h"
 #include <memory>
+#include <vector>
 
 namespace Shader
 {
+
+  enum class SHADER_TYPES
+  {
+    MAIN             = 0,
+    BLACK            = 1,
+    FLAT             = 2,
+    NORMAL           = 3,
+    NUM_SHADER_TYPES = 4
+  };
+
   class ShaderHandler
   {
   public:
     ShaderHandler(QObject *parent = 0);
 
-    MainShader *mainShader() const;
-    BlackShader *blackShader() const;
-    FlatShader *flatshader() const;
-    NormalShader *normalShader() const;
-
     void createShaders();
     void updateUniforms(QMatrix4x4 &projectionMatrix, QMatrix4x4 &modelViewMatrix);
+    void bind(SHADER_TYPES type);
 
   private:
     template <typename T>
     void updateSingleUniform(T *shader, QMatrix4x4 &projectionMatrix, QMatrix4x4 &modelViewMatrix);
-    std::unique_ptr<MainShader> m_mainShader;
-    std::unique_ptr<BlackShader> m_blackShader;
-    std::unique_ptr<FlatShader> m_flatshader;
-    std::unique_ptr<NormalShader> m_normalShader;
+
+    std::vector<ShaderProgram *> *m_shaderPrograms;
   };
 }
 

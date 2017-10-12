@@ -2,7 +2,7 @@
 #define RENDERABLE_H
 
 #include <QOpenGLFunctions_4_1_Core>
-namespace Display
+namespace Surface
 {
 
   class GLWindow;

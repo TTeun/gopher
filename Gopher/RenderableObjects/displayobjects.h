@@ -5,21 +5,21 @@
 #include "surfacerenderable.h"
 #include <memory>
 
-namespace Display
+namespace Surface
 {
   class DisplayObjects
   {
   public:
     DisplayObjects();
 
-    Display::SurfaceRenderable *ball() const;
-    Display::Axis *axis() const;
+    Surface::SurfaceRenderable *ball() const;
+    Surface::Axis *axis() const;
 
     void init(QOpenGLFunctions_4_1_Core *glFunctons);
 
   private:
-    std::unique_ptr<Display::SurfaceRenderable> m_ball;
-    std::unique_ptr<Display::Axis> m_axis;
+    std::unique_ptr<Surface::SurfaceRenderable> m_ball;
+    std::unique_ptr<Surface::Axis> m_axis;
   };
 }
 #endif // DISPLAYOBJECTS_H

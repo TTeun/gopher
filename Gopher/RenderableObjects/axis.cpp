@@ -1,6 +1,6 @@
 #include "axis.h"
 
-namespace Display
+namespace Surface
 {
   Axis::Axis() : m_vertices(new QVector<QVector3D>()), m_colors(new QVector<QVector4D>())
   {

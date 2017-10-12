@@ -1,6 +1,6 @@
 #include "renderable.h"
 
-namespace Display
+namespace Surface
 {
 
   Renderable::Renderable() {}

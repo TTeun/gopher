@@ -2,19 +2,13 @@
 #define TRIANGLEWINDOW_H
 
 #include "RenderableObjects/axis.h"
-#include "RenderableObjects/ballrenderable.h"
 #include "RenderableObjects/displayobjects.h"
 #include "ShaderHandler/shaderhandler.h"
-#include "parser/parser.h"
-#include "parser/print.h"
-#include "parser/simplify.h"
+#include <QKeyEvent>
+#include <QMouseEvent>
 #include <QOpenGLFunctions_4_1_Core>
 #include <QOpenGLWidget>
-#include <QVector>
-#include <QtCore/qmath.h>
 #include <QtGui/QMatrix4x4>
-#include <QtGui/QOpenGLShaderProgram>
-#include <QtGui/QScreen>
 #include <memory>
 
 class GLDisplay : public QOpenGLWidget
@@ -27,14 +21,19 @@ public:
   void paintGL();
   void resizeGL(int w, int h);
 
-  Shader::ShaderHandler *shaderHandler() const;
   void setShaderHandler(Shader::ShaderHandler *shaderHandler);
+
+protected:
+  void keyPressEvent(QKeyEvent *event);
+  void mousePressEvent(QMouseEvent *event);
 
 private:
   QOpenGLFunctions_4_1_Core *m_glFunctions;
   Shader::ShaderHandler *m_shaderHandler;
-  Display::DisplayObjects *m_displayObjects;
+  Surface::DisplayObjects *m_displayObjects;
 
+  bool uniformsNeedUpdate = true;
+  void updateUniforms();
   QVector3D m_lightPos;
   QMatrix4x4 m_projectionMatrix;
   float nsAngle = 0.0f;

@@ -1,35 +1,39 @@
 #include "shaderhandler.h"
 
+using namespace std;
+
 namespace Shader
 {
   ShaderHandler::ShaderHandler(QObject *parent)
-      : m_mainShader(new MainShader(parent)),
-        m_blackShader(new BlackShader(parent)),
-        m_flatshader(new FlatShader(parent)),
-        m_normalShader(new NormalShader(parent))
+      : m_shaderPrograms(new vector<ShaderProgram *>(static_cast<size_t>(SHADER_TYPES::NUM_SHADER_TYPES)))
   {
+    for (size_t idx = 0; idx != static_cast<size_t>(SHADER_TYPES::NUM_SHADER_TYPES); ++idx)
+    {
+      (*m_shaderPrograms)[idx] = new ShaderProgram(parent);
+    }
   }
-
-  MainShader *ShaderHandler::mainShader() const { return m_mainShader.get(); }
-  BlackShader *ShaderHandler::blackShader() const { return m_blackShader.get(); }
-  FlatShader *ShaderHandler::flatshader() const { return m_flatshader.get(); }
-  NormalShader *ShaderHandler::normalShader() const { return m_normalShader.get(); }
 
   void ShaderHandler::createShaders()
   {
-    m_mainShader->init();
-    m_flatshader->init();
-    m_normalShader->init();
-    m_blackShader->init();
+    m_shaderPrograms->at(static_cast<size_t>(SHADER_TYPES::MAIN))
+        ->init("../Gopher/shaders/vertshader.glsl", "../Gopher/shaders/fragshader.glsl");
+    m_shaderPrograms->at(static_cast<size_t>(SHADER_TYPES::BLACK))
+        ->init("../Gopher/shaders/vert_black.glsl", "../Gopher/shaders/frag_black.glsl");
+    m_shaderPrograms->at(static_cast<size_t>(SHADER_TYPES::NORMAL))
+        ->init("../Gopher/shaders/vert_geo.glsl",
+               "../Gopher/shaders/frag_geo.glsl",
+               "../Gopher/shaders/geo_norm.glsl");
+    m_shaderPrograms->at(static_cast<size_t>(SHADER_TYPES::FLAT))
+        ->init("../Gopher/shaders/vert_flat.glsl", "../Gopher/shaders/frag_flat.glsl");
   }
 
   void ShaderHandler::updateUniforms(QMatrix4x4 &projectionMatrix, QMatrix4x4 &modelViewMatrix)
   {
-    updateSingleUniform(m_mainShader.get(), projectionMatrix, modelViewMatrix);
-    updateSingleUniform(m_blackShader.get(), projectionMatrix, modelViewMatrix);
-    updateSingleUniform(m_normalShader.get(), projectionMatrix, modelViewMatrix);
-    updateSingleUniform(m_flatshader.get(), projectionMatrix, modelViewMatrix);
+    for (auto *shader : *m_shaderPrograms)
+      updateSingleUniform(shader, projectionMatrix, modelViewMatrix);
   }
+
+  void ShaderHandler::bind(SHADER_TYPES type) { m_shaderPrograms->at(static_cast<size_t>(type))->bind(); }
 
   template <typename T>
   void

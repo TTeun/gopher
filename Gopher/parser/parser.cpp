@@ -2,7 +2,7 @@
 #include "simplify.h"
 #include <tuple>
 
-namespace client
+namespace Parser
 {
   ast &ast::operator+=(ast const &rhs)
   {

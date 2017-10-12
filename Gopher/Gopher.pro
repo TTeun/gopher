@@ -26,38 +26,28 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     RenderableObjects/axis.cpp \
-    RenderableObjects/ballrenderable.cpp \
     RenderableObjects/renderable.cpp \
     RenderableObjects/surfacerenderable.cpp \
-    ShaderHandler/Implementations/blackshader.cpp \
-    ShaderHandler/Implementations/flatshader.cpp \
-    ShaderHandler/Implementations/mainshader.cpp \
-    ShaderHandler/Implementations/normalshader.cpp \
     parser/parser.cpp \
-    parser/simplify.cpp \
     parser/print.cpp \
-    equationhandler.cpp \
     ShaderHandler/shaderhandler.cpp \
     gldisplay.cpp \
-    RenderableObjects/displayobjects.cpp
+    RenderableObjects/displayobjects.cpp \
+    ShaderHandler/Implementations/shaderprogram.cpp \
+    parser/collapse.cpp
 
 HEADERS += \
     mainwindow.h \
     RenderableObjects/axis.h \
-    RenderableObjects/ballrenderable.h \
     RenderableObjects/renderable.h \
     RenderableObjects/surfacerenderable.h \
-    ShaderHandler/Implementations/blackshader.h \
-    ShaderHandler/Implementations/flatshader.h \
-    ShaderHandler/Implementations/mainshader.h \
-    ShaderHandler/Implementations/normalshader.h \
     parser/parser.h \
-    parser/simplify.h \
     parser/print.h \
-    equationhandler.h \
     ShaderHandler/shaderhandler.h \
     gldisplay.h \
-    RenderableObjects/displayobjects.h
+    RenderableObjects/displayobjects.h \
+    ShaderHandler/Implementations/shaderprogram.h \
+    parser/collapse.h
 
 
 FORMS += \
