@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "globjects.h"
+#include "gldisplay.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
 

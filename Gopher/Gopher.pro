@@ -38,7 +38,8 @@ SOURCES += \
     parser/print.cpp \
     equationhandler.cpp \
     ShaderHandler/shaderhandler.cpp \
-    globjects.cpp
+    gldisplay.cpp \
+    RenderableObjects/displayobjects.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -55,8 +56,12 @@ HEADERS += \
     parser/print.h \
     equationhandler.h \
     ShaderHandler/shaderhandler.h \
-    globjects.h
+    gldisplay.h \
+    RenderableObjects/displayobjects.h
 
 
 FORMS += \
         mainwindow.ui
+
+RESOURCES += \
+      resources.qrc

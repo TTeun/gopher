@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="GLObjects" name="openGLWidget"/>
+     <widget class="GLDisplay" name="openGLWidget"/>
     </item>
    </layout>
   </widget>
@@ -49,9 +49,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>GLObjects</class>
+   <class>GLDisplay</class>
    <extends>QOpenGLWidget</extends>
-   <header>globjects.h</header>
+   <header>gldisplay.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

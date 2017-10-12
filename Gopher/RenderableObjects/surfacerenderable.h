@@ -22,6 +22,8 @@ namespace Display
     void init(QOpenGLFunctions_4_1_Core *glFunctions) override;
     void render(QOpenGLFunctions_4_1_Core *ui) override;
     void load_obj(const char *filename);
+    void createBall(float radius);
+    void renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions);
 
     QMatrix4x4 *modelViewMatrix() const;
     void setModelViewMatrix(QMatrix4x4 *modelViewMatrix);

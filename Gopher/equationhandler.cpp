@@ -2,5 +2,4 @@
 
 EquationHandler::EquationHandler(QWidget *parent) : QWidget(parent)
 {
-
 }

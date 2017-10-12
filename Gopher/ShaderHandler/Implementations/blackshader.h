@@ -18,5 +18,4 @@ namespace Shader
     GLint m_modelViewMatrixUniform;
   };
 }
-
 #endif // BLACKSHADER_H

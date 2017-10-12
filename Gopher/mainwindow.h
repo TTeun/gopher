@@ -23,8 +23,8 @@ protected:
   void keyPressEvent(QKeyEvent *event);
 
 private:
-  std::unique_ptr<Shader::ShaderHandler> m_shaderHandler;
   Ui::MainWindow *ui;
+  std::unique_ptr<Shader::ShaderHandler> m_shaderHandler;
 };
 
 #endif // MAINWINDOW_H
