@@ -4,6 +4,7 @@
 #include "axis.h"
 #include "surfacerenderable.h"
 #include <memory>
+#include <vector>
 
 namespace Surface
 {
@@ -11,14 +12,20 @@ namespace Surface
   {
   public:
     DisplayObjects();
+    ~DisplayObjects();
 
-    Surface::SurfaceRenderable *ball() const;
     Surface::Axis *axis() const;
-
     void init(QOpenGLFunctions_4_1_Core *glFunctons);
+    void addSurfaceRenderable();
+
+    std::vector<std::unique_ptr<SurfaceRenderable>> const *surfaceRenderables() const;
+    std::unique_ptr<SurfaceRenderable> surf;
+
+    void render();
 
   private:
-    std::unique_ptr<Surface::SurfaceRenderable> m_ball;
+    QOpenGLFunctions_4_1_Core *m_glFunctons;
+    std::unique_ptr<std::vector<std::unique_ptr<SurfaceRenderable>>> m_surfaceRenderables;
     std::unique_ptr<Surface::Axis> m_axis;
   };
 }

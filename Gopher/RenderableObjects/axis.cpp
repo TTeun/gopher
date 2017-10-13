@@ -23,7 +23,9 @@ namespace Surface
     m_colors->append(QVector4D(0, 0, 1, 1));
   }
 
-  Axis::~Axis() {}
+  Axis::~Axis()
+  {
+  }
 
   void Axis::createBuffers(QOpenGLFunctions_4_1_Core *glFunctions)
   {
@@ -43,7 +45,10 @@ namespace Surface
     glFunctions->glBindVertexArray(0);
   }
 
-  void Axis::init(QOpenGLFunctions_4_1_Core *glFunctions) { createBuffers(glFunctions); }
+  void Axis::init(QOpenGLFunctions_4_1_Core *glFunctions)
+  {
+    createBuffers(glFunctions);
+  }
 
   void Axis::render(QOpenGLFunctions_4_1_Core *glFunctions)
   {

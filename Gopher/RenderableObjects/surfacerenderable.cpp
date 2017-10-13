@@ -1,12 +1,13 @@
 #include "surfacerenderable.h"
-#include <cmath>
-#include <fstream>
-#include <sstream>
-
 #include "parser/collapse.h"
 #include "parser/parser.h"
 #include "parser/partialcollapse.h"
 #include "parser/print.h"
+#include <QElapsedTimer>
+#include <cmath>
+#include <fstream>
+#include <sstream>
+#include <stdexcept>
 
 namespace Surface
 {
@@ -17,8 +18,7 @@ namespace Surface
       : m_vertices(new QVector<QVector3D>()),
         m_colors(new QVector<QVector4D>()),
         m_normals(new QVector<QVector3D>()),
-        m_indices(new QVector<unsigned int>()),
-        m_modelViewMatrix(new QMatrix4x4)
+        m_indices(new QVector<unsigned int>())
   {
   }
 
@@ -28,11 +28,14 @@ namespace Surface
 
   void SurfaceRenderable::init(QOpenGLFunctions_4_1_Core *glFunctions)
   {
+    assert(glFunctions);
     createBuffers(glFunctions);
+    qDebug() << "Surface initialized with vao " << m_vao;
   }
 
   void SurfaceRenderable::render(QOpenGLFunctions_4_1_Core *glFunctions)
   {
+    assert(glFunctions);
     glFunctions->glBindVertexArray(m_vao);
 
     updateBuffers(glFunctions);
@@ -65,6 +68,18 @@ namespace Surface
     glFunctions->glBindVertexArray(0);
   }
 
+  void SurfaceRenderable::clear()
+  {
+    m_vertices->clear();
+    m_vertices->squeeze();
+    m_colors->clear();
+    m_colors->squeeze();
+    m_normals->clear();
+    m_normals->squeeze();
+    m_indices->clear();
+    m_indices->squeeze();
+  }
+
   void SurfaceRenderable::updateBuffers(QOpenGLFunctions_4_1_Core *glFunctions)
   {
     glFunctions->glBindVertexArray(m_vao);
@@ -88,24 +103,11 @@ namespace Surface
                               GL_DYNAMIC_DRAW);
   }
 
-  QMatrix4x4 *SurfaceRenderable::modelViewMatrix() const
-  {
-    return m_modelViewMatrix;
-  }
-
-  void SurfaceRenderable::setModelViewMatrix(QMatrix4x4 *modelViewMatrix)
-  {
-    m_modelViewMatrix = modelViewMatrix;
-  }
-
-  void SurfaceRenderable::load_obj(const char *filename)
+  void SurfaceRenderable::loadObj(const char *filename)
   {
     ifstream in(filename, ios::in);
     if (!in)
-    {
-      qDebug() << "Cannot open " << filename << endl;
-      exit(1);
-    }
+      throw string("cant open file");
 
     string line;
     while (getline(in, line))
@@ -158,15 +160,7 @@ namespace Surface
 
   void SurfaceRenderable::createBall(float radius)
   {
-    m_vertices->clear();
-    m_vertices->squeeze();
-    m_colors->clear();
-    m_colors->squeeze();
-    m_normals->clear();
-    m_normals->squeeze();
-    m_indices->clear();
-    m_indices->squeeze();
-
+    clear();
     size_t polar_slices = 30;
     size_t azi_slices   = 15;
     uint index;
@@ -214,10 +208,11 @@ namespace Surface
     glFunctions->glDrawElements(GL_LINES, m_indices->size(), GL_UNSIGNED_INT, 0);
   }
 
-  void SurfaceRenderable::fillParametric(std::string &func1, std::string &func2)
+  void SurfaceRenderable::fillParametric(std::string &func)
   {
-    auto first = func1.begin();
-    auto end   = func1.end();
+    clear();
+    auto first = func.begin();
+    auto end   = func.end();
     auto expr  = Parser::expression();
 
     if (boost::spirit::qi::phrase_parse(first,
@@ -226,12 +221,45 @@ namespace Surface
                                         boost::spirit::ascii::space,
                                         expr))
     {
-      double val;
       expr.syntax_tree.type = Parser::collapse(expr.syntax_tree.type);
-      for (size_t i = 0; i != 10000; ++i)
-        val = Parser::eval(expr.syntax_tree.type, make_pair("u", 1.0), make_pair("v", 1.0));
-      //      expr.syntax_tree.type = Parser::partialCollapse(expr.syntax_tree.type, string("u"), 0.0);
-      Parser::printTree(expr);
+      double val1;
+
+      QElapsedTimer timer;
+      timer.start();
+
+      double u = -1, v = -1;
+      size_t steps = 40;
+      double d_u   = 2.0 / static_cast<float>(steps);
+      double d_v   = 2.0 / static_cast<float>(steps);
+
+      for (size_t u_step = 0; u_step != steps; ++u_step)
+      {
+        u += d_u;
+        v = -1;
+        qDebug() << u;
+        for (size_t v_step = 0; v_step != steps; ++v_step)
+        {
+          v += d_v;
+          val1 = Parser::eval(expr.syntax_tree.type, make_pair("u", u), make_pair("v", v));
+          m_vertices->append(QVector3D(u, v, val1));
+          m_colors->append(QVector4D(0.2, 0.2, 0.2, 0.2));
+        }
+      }
+      for (size_t u_step = 1; u_step != steps; ++u_step)
+      {
+        for (size_t v_step = 1; v_step != steps; ++v_step)
+        {
+          m_indices->append(steps * (v_step - 1) + u_step - 1);
+          m_indices->append(steps * (v_step - 1) + u_step);
+          m_indices->append(steps * (v_step) + u_step - 1);
+
+          m_indices->append(steps * (v_step - 1) + u_step);
+          m_indices->append(steps * (v_step) + u_step);
+          m_indices->append(steps * (v_step) + u_step - 1);
+        }
+      }
+
+      qDebug() << "The evaluation operation took" << timer.elapsed() << "milliseconds";
     }
     else
     {

@@ -22,7 +22,14 @@ namespace Parser
   };
 
   ast::ast_type partialCollapse(ast::ast_type &type, std::string var, double value);
-  double eval(ast::ast_type &type, std::pair<std::string, double> val1, std::pair<std::string, double> val2);
+  inline ast::ast_type partialCollapse(ast::ast_type &type, std::string var, double value)
+  {
+    return boost::apply_visitor(partialCollapseVisitor{var, value}, type).type;
+  }
+
+  double eval(ast::ast_type &type,
+              std::pair<std::string, double> const &val1,
+              std::pair<std::string, double> const &val2);
 };
 
 #endif // PARTIALCOLLAPE_H

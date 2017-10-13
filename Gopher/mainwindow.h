@@ -22,6 +22,9 @@ public:
 protected:
   void keyPressEvent(QKeyEvent *event);
 
+private slots:
+  void addObject();
+
 private:
   Ui::MainWindow *ui;
   std::unique_ptr<Shader::ShaderHandler> m_shaderHandler;

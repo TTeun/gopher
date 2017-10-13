@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>769</width>
+    <height>619</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="GLDisplay" name="openGLWidget"/>
+     <widget class="GLScene" name="openGLWidget"/>
     </item>
    </layout>
   </widget>
@@ -25,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>769</width>
      <height>22</height>
     </rect>
    </property>
@@ -34,7 +34,14 @@
      <string>Gopher</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuObjects">
+    <property name="title">
+     <string>Objects</string>
+    </property>
+    <addaction name="addObjectMenuItem"/>
+   </widget>
    <addaction name="menuGopher"/>
+   <addaction name="menuObjects"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -45,13 +52,18 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="addObjectMenuItem">
+   <property name="text">
+    <string>Add Object</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>GLDisplay</class>
+   <class>GLScene</class>
    <extends>QOpenGLWidget</extends>
-   <header>gldisplay.h</header>
+   <header>glscene.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

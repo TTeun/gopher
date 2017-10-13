@@ -36,17 +36,13 @@ namespace Parser
     return unary_operation(t.tag, boost::apply_visitor(*this, t.tree.type).type);
   }
 
-  ast::ast_type partialCollapse(ast::ast_type &type, std::string var, double value)
-  {
-    partialCollapseVisitor visitor(var, value);
-    auto collapsed = boost::apply_visitor(visitor, type).type;
-    return boost::apply_visitor(collapseVisitor{}, collapsed).type;
-  }
-
-  double eval(ast::ast_type &type, std::pair<std::string, double> val1, std::pair<std::string, double> val2)
+  double eval(ast::ast_type &type,
+              std::pair<std::string, double> const &val1,
+              std::pair<std::string, double> const &val2)
   {
     auto t       = partialCollapse(type, val1.first, val1.second);
     t            = partialCollapse(t, val2.first, val2.second);
+    t            = collapse(t);
     isNum is_num = boost::apply_visitor(isNumVisitor{}, t);
     if (not is_num.is_a_number)
       throw std::string{"Could not collapse ast down to a number"};

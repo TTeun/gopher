@@ -21,18 +21,20 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
-#include "gldisplay.h"
+#include "glscene.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MainWindow
 {
 public:
+    QAction *addObjectMenuItem;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
-    GLDisplay *openGLWidget;
+    GLScene *openGLWidget;
     QMenuBar *menuBar;
     QMenu *menuGopher;
+    QMenu *menuObjects;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -40,14 +42,16 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(400, 300);
+        MainWindow->resize(769, 619);
+        addObjectMenuItem = new QAction(MainWindow);
+        addObjectMenuItem->setObjectName(QStringLiteral("addObjectMenuItem"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        openGLWidget = new GLDisplay(centralWidget);
+        openGLWidget = new GLScene(centralWidget);
         openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
 
         horizontalLayout->addWidget(openGLWidget);
@@ -55,9 +59,11 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 22));
+        menuBar->setGeometry(QRect(0, 0, 769, 22));
         menuGopher = new QMenu(menuBar);
         menuGopher->setObjectName(QStringLiteral("menuGopher"));
+        menuObjects = new QMenu(menuBar);
+        menuObjects->setObjectName(QStringLiteral("menuObjects"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -67,6 +73,8 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         menuBar->addAction(menuGopher->menuAction());
+        menuBar->addAction(menuObjects->menuAction());
+        menuObjects->addAction(addObjectMenuItem);
 
         retranslateUi(MainWindow);
 
@@ -76,7 +84,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        addObjectMenuItem->setText(QApplication::translate("MainWindow", "Add Object", Q_NULLPTR));
         menuGopher->setTitle(QApplication::translate("MainWindow", "Gopher", Q_NULLPTR));
+        menuObjects->setTitle(QApplication::translate("MainWindow", "Objects", Q_NULLPTR));
     } // retranslateUi
 
 };

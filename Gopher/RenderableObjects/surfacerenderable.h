@@ -27,21 +27,21 @@ namespace Surface
 
     void init(QOpenGLFunctions_4_1_Core *glFunctions) override;
     void render(QOpenGLFunctions_4_1_Core *ui) override;
-    void load_obj(const char *filename);
+    void loadObj(const char *filename);
     void createBall(float radius);
     void renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions);
-    void fillParametric(std::string &func1, std::string &func2);
-
-    QMatrix4x4 *modelViewMatrix() const;
-    void setModelViewMatrix(QMatrix4x4 *modelViewMatrix);
+    void fillParametric(std::string &func1);
 
   protected:
     void createBuffers(QOpenGLFunctions_4_1_Core *ui) override;
 
+  private:
     std::unique_ptr<QVector<QVector3D>> m_vertices;
     std::unique_ptr<QVector<QVector4D>> m_colors;
     std::unique_ptr<QVector<QVector3D>> m_normals;
     std::unique_ptr<QVector<unsigned int>> m_indices;
+
+    void clear();
 
     void updateBuffers(QOpenGLFunctions_4_1_Core *ui);
 
@@ -49,8 +49,6 @@ namespace Surface
     uint m_colourBO;
     uint m_normalBO;
     uint m_indicesBO;
-
-    QMatrix4x4 *m_modelViewMatrix;
   };
 }
 #endif // SURFACERENDERABLE_H

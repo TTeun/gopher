@@ -132,9 +132,8 @@ namespace Parser
     isNum val;
 
     if ((val = boost::apply_visitor(isNumVisitor{}, t.tree.type)).is_a_number == true)
-    {
       return get_val(val.value, t.tag);
-    }
+
     return t;
   }
 
