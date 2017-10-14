@@ -6,16 +6,116 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>294</width>
+    <height>107</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
-   <item>
-    <widget class="QLineEdit" name="lineEdit"/>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>u</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>f(u,v) =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QDoubleSpinBox" name="var2Max">
+     <property name="minimum">
+      <double>-1000.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>3.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>v</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QDoubleSpinBox" name="var1Min">
+     <property name="minimum">
+      <double>-1000.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>-3.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2" colspan="3">
+    <widget class="QLineEdit" name="equationLine">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QDoubleSpinBox" name="var2Min">
+     <property name="minimum">
+      <double>-1000.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>-3.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4">
+    <widget class="QDoubleSpinBox" name="uIncrement">
+     <property name="singleStep">
+      <double>0.050000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QDoubleSpinBox" name="var1Max">
+     <property name="minimum">
+      <double>-1000.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>3.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="4">
+    <widget class="QDoubleSpinBox" name="vIncrement">
+     <property name="singleStep">
+      <double>0.050000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

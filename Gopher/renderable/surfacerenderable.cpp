@@ -211,13 +211,16 @@ namespace Surface
     glFunctions->glDrawElements(GL_LINES, m_indices->size(), GL_UNSIGNED_INT, 0);
   }
 
-  void SurfaceRenderable::fillParametric(std::string &func)
+  void SurfaceRenderable::fillParametric(
+      std::string &func, double u_min, double u_max, double v_min, double v_max, double d_u, double d_v)
   {
     clear();
+    if (d_u == 0 || d_v == 0)
+      throw string{"Increment of zero size!"};
+
     auto first = func.begin();
     auto end   = func.end();
     auto expr  = Parser::expression();
-
     if (boost::spirit::qi::phrase_parse(first,
                                         end,
                                         Parser::exp_parser<std::string::iterator>{} >> qi::eoi,
@@ -230,52 +233,55 @@ namespace Surface
       QElapsedTimer timer;
       timer.start();
 
-      double u_min = -3, v_min = -3, u_max = 3, v_max = 3;
       double u = u_min, v = v_min;
-      size_t steps = 40;
-      double d_u   = (u_max - u_min) / static_cast<float>(steps);
-      double d_v   = (v_max - v_min) / static_cast<float>(steps);
+      size_t u_steps = (u_max - u_min) / d_u;
+      size_t v_steps = (v_max - v_min) / d_v;
 
       double max = numeric_limits<double>::min();
       double min = numeric_limits<double>::max();
 
-      for (size_t u_step = 0; u_step != steps; ++u_step)
+      for (size_t u_step = 0; u_step != u_steps; ++u_step)
       {
-        u += d_u;
         v = v_min;
-        for (size_t v_step = 0; v_step != steps; ++v_step)
+        for (size_t v_step = 0; v_step != v_steps; ++v_step)
         {
-          v += d_v;
           val1 = Parser::eval(expr.syntax_tree.type, make_pair("u", u), make_pair("v", v));
           max  = max > val1 ? max : val1;
           min  = min < val1 ? min : val1;
 
           m_vertices->append(QVector3D(u, v, val1));
+          v += d_v;
         }
+        u += d_u;
       }
-      for (size_t u_step = 1; u_step != steps; ++u_step)
+      max = max > 4.0 ? 4.0 : max;
+      min = min < -4.0 ? -4.0 : min;
+      if (max == min)
       {
-        for (size_t v_step = 1; v_step != steps; ++v_step)
+        max = 1.0;
+        min = -1.0;
+      }
+      for (size_t u_step = 1; u_step != u_steps; ++u_step)
+      {
+        for (size_t v_step = 1; v_step != v_steps; ++v_step)
         {
-          m_indices->append(steps * (v_step - 1) + u_step - 1);
-          m_indices->append(steps * (v_step - 1) + u_step);
-          m_indices->append(steps * (v_step) + u_step - 1);
+          m_indices->append(u_steps * (v_step - 1) + u_step - 1);
+          m_indices->append(u_steps * (v_step - 1) + u_step);
+          m_indices->append(u_steps * (v_step) + u_step - 1);
 
-          m_indices->append(steps * (v_step - 1) + u_step);
-          m_indices->append(steps * (v_step) + u_step);
-          m_indices->append(steps * (v_step) + u_step - 1);
+          m_indices->append(u_steps * (v_step - 1) + u_step);
+          m_indices->append(u_steps * (v_step) + u_step);
+          m_indices->append(u_steps * (v_step) + u_step - 1);
         }
       }
       for (auto &pos : *m_vertices)
-      {
-        m_colors->append((pos[2] - min) / (max - min) * QVector3D(1.0, 1.0, 1.0));
-      }
+        m_colors->append((pos[2] - min) / (max - min) * QVector3D(0.86, 0.95, 0.96));
 
       qDebug() << "Parametric surface evaluation operation took" << timer.elapsed() << "milliseconds";
     }
     else
     {
-      qDebug() << "Parse failed";
+      throw string{"Parse Error"};
     }
   }
 }

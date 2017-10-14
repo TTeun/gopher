@@ -20,6 +20,9 @@ public:
 
   Surface::SurfaceRenderable *surface() const;
 
+private slots:
+  void equationChanged();
+
 private:
   Ui::SurfaceWidget *ui;
   std::unique_ptr<Surface::SurfaceRenderable> m_surface;

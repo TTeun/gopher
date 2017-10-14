@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
   ui->openGLWidget->setShaderHandler(m_shaderHandler.get());
   ui->openGLWidget->setMainWindowLayout(this->layout());
+  setCentralWidget(ui->openGLWidget);
   connect(ui->addObjectMenuItem, SIGNAL(triggered()), this, SLOT(addObject()));
 }
 

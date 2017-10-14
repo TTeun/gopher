@@ -30,7 +30,8 @@ namespace Surface
     void loadObj(const char *filename);
     void createBall(float radius);
     void renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions);
-    void fillParametric(std::string &func1);
+    void fillParametric(
+        std::string &func1, double u_min, double u_max, double v_min, double v_max, double d_u, double d_v);
 
   protected:
     void createBuffers(QOpenGLFunctions_4_1_Core *ui) override;

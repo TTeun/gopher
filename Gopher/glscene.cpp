@@ -74,8 +74,6 @@ void GLScene::addSurfaceRenderable()
 {
   auto *s = new SurfaceWidget(m_mainWindowLayout->widget());
   s->surface()->init(m_glFunctions);
-  string func1("f(u,v) = sin(3.14 * u) * cos(3.14 *v)");
-  s->surface()->fillParametric(func1);
   m_mainWindowLayout->addWidget(s);
 
   m_surfaceRenderables->emplace_back(std::move(s));

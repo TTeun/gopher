@@ -10,7 +10,6 @@ GLDisplay::GLDisplay(QWidget *parent) : QOpenGLWidget(parent)
   m_lightPos = QVector3D(0.0, 0.0, -4.0);
 
   m_modelViewMatrix.setToIdentity();
-  //  m_modelViewMatrix.rotate(-20, QVector3D(0.0, 0.0, 1.0));
   m_modelViewMatrix.rotate(-50, QVector3D(1.0, 0.0, 0.0));
 }
 

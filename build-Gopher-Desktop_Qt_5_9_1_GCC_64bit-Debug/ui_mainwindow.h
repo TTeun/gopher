@@ -35,8 +35,8 @@ public:
     QMenuBar *menuBar;
     QMenu *menuGopher;
     QMenu *menuObjects;
-    QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QToolBar *mainToolBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -65,12 +65,12 @@ public:
         menuObjects = new QMenu(menuBar);
         menuObjects->setObjectName(QStringLiteral("menuObjects"));
         MainWindow->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
+        mainToolBar = new QToolBar(MainWindow);
+        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
+        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
 
         menuBar->addAction(menuGopher->menuAction());
         menuBar->addAction(menuObjects->menuAction());
