@@ -1,8 +1,8 @@
 #ifndef TRIANGLEWINDOW_H
 #define TRIANGLEWINDOW_H
 
-#include "RenderableObjects/axis.h"
-#include "ShaderHandler/shaderhandler.h"
+#include "renderable/axis.h"
+#include "shaderhandler/shaderhandler.h"
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QOpenGLFunctions_4_1_Core>

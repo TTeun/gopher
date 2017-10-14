@@ -1,7 +1,7 @@
 #version 410
 layout(triangles) in;
 
-layout (location = 1) in vec4 in_colour[];
+layout (location = 1) in vec3 in_colour[];
 layout (location = 2) in vec3 in_normal[];
 
 
@@ -11,7 +11,7 @@ layout(line_strip, max_vertices=6) out;
 uniform highp mat4 projectionMatrix;
 uniform highp mat4 modelViewMatrix;
 
-out vec4 vertex_color;
+out vec3 vertex_color;
 
 void main()
 {

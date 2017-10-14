@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
   qDebug() << "MainWindow constructor";
   ui->setupUi(this);
   ui->openGLWidget->setShaderHandler(m_shaderHandler.get());
+  ui->openGLWidget->setMainWindowLayout(this->layout());
   connect(ui->addObjectMenuItem, SIGNAL(triggered()), this, SLOT(addObject()));
 }
 
@@ -25,6 +26,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::addObject()
 {
   qDebug() << "Add object";
-  //  ui->openGLWidget->mdisplayObjects()->addSurfaceRenderable();
+  ui->openGLWidget->requestNewSurfaceRendearble();
   ui->openGLWidget->update();
 }

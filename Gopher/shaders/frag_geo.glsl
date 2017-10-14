@@ -1,6 +1,6 @@
 #version 150
-in vec4 vertex_color;
-out vec4 Out_Color;
+in vec3 vertex_color;
+out vec3 Out_Color;
 void main()
 {
   Out_Color = vertex_color;

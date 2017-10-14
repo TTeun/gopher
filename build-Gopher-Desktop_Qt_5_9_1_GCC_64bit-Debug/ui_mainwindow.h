@@ -13,13 +13,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "glscene.h"
 
@@ -30,7 +30,7 @@ class Ui_MainWindow
 public:
     QAction *addObjectMenuItem;
     QWidget *centralWidget;
-    QHBoxLayout *horizontalLayout;
+    QVBoxLayout *verticalLayout;
     GLScene *openGLWidget;
     QMenuBar *menuBar;
     QMenu *menuGopher;
@@ -47,14 +47,14 @@ public:
         addObjectMenuItem->setObjectName(QStringLiteral("addObjectMenuItem"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        horizontalLayout = new QHBoxLayout(centralWidget);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        verticalLayout = new QVBoxLayout(centralWidget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         openGLWidget = new GLScene(centralWidget);
         openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
 
-        horizontalLayout->addWidget(openGLWidget);
+        verticalLayout->addWidget(openGLWidget);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);

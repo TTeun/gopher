@@ -25,37 +25,38 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    RenderableObjects/axis.cpp \
-    RenderableObjects/renderable.cpp \
-    RenderableObjects/surfacerenderable.cpp \
+    renderable/axis.cpp \
+    renderable/renderable.cpp \
+    renderable/surfacerenderable.cpp \
     parser/parser.cpp \
     parser/print.cpp \
-    ShaderHandler/shaderhandler.cpp \
+    shaderhandler/shaderhandler.cpp \
     gldisplay.cpp \
-    RenderableObjects/displayobjects.cpp \
-    ShaderHandler/Implementations/shaderprogram.cpp \
+    shaderhandler/shaderprogram.cpp \
     parser/collapse.cpp \
     parser/partialcollapse.cpp \
-    glscene.cpp
+    glscene.cpp \
+    surfacewidget.cpp
 
 HEADERS += \
     mainwindow.h \
-    RenderableObjects/axis.h \
-    RenderableObjects/renderable.h \
-    RenderableObjects/surfacerenderable.h \
+    renderable/axis.h \
+    renderable/renderable.h \
+    renderable/surfacerenderable.h \
     parser/parser.h \
     parser/print.h \
-    ShaderHandler/shaderhandler.h \
+    shaderhandler/shaderhandler.h \
     gldisplay.h \
-    RenderableObjects/displayobjects.h \
-    ShaderHandler/Implementations/shaderprogram.h \
+    shaderhandler/shaderprogram.h \
     parser/collapse.h \
     parser/partialcollapse.h \
-    glscene.h
+    glscene.h \
+    surfacewidget.h
 
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    surfacewidget.ui
 
 RESOURCES += \
       resources.qrc

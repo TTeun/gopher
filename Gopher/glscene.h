@@ -1,8 +1,9 @@
 #ifndef GLSCENE_H
 #define GLSCENE_H
 
-#include "RenderableObjects/surfacerenderable.h"
 #include "gldisplay.h"
+#include "surfacewidget.h"
+#include <QLayout>
 #include <memory>
 #include <vector>
 
@@ -14,12 +15,16 @@ public:
 
   void initializeGL();
   void paintGL();
-
-  Surface::SurfaceRenderable *surf;
+  void requestNewSurfaceRendearble();
+  SurfaceWidget *addSurfaceWidget();
+  void setMainWindowLayout(QLayout *layout);
 
 private:
+  QLayout *m_mainWindowLayout;
+  bool m_needsNewSurfaaceRenderable = false;
+  void addSurfaceRenderable();
   std::unique_ptr<Surface::Axis> m_axis;
-  std::unique_ptr<std::vector<std::unique_ptr<Surface::SurfaceRenderable>>> m_surfaceRenderables;
+  std::unique_ptr<std::vector<SurfaceWidget *>> m_surfaceRenderables;
 };
 
 #endif // GLSCENE_H

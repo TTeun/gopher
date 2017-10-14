@@ -1,7 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "ShaderHandler/shaderhandler.h"
+#include "shaderhandler/shaderhandler.h"
+#include "surfacewidget.h"
 #include <QKeyEvent>
 #include <QMainWindow>
 #include <memory>
