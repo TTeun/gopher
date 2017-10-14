@@ -242,7 +242,7 @@ namespace Surface
           v += d_v;
           val1 = Parser::eval(expr.syntax_tree.type, make_pair("u", u), make_pair("v", v));
           m_vertices->append(QVector3D(u, v, val1));
-          m_colors->append(QVector4D(0.2, 0.2, 0.2, 0.2));
+          m_colors->append(QVector4D(0.6, 0.6, 0.6, 0.2));
         }
       }
       for (size_t u_step = 1; u_step != steps; ++u_step)
@@ -259,7 +259,7 @@ namespace Surface
         }
       }
 
-      qDebug() << "The evaluation operation took" << timer.elapsed() << "milliseconds";
+      qDebug() << "Parametric surface evaluation operation took" << timer.elapsed() << "milliseconds";
     }
     else
     {

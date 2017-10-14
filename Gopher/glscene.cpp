@@ -6,9 +6,7 @@ using namespace Shader;
 using namespace std;
 
 GLScene::GLScene(QWidget *parent)
-    : GLDisplay(parent),
-      surf(new SurfaceRenderable()),
-      m_surfaceRenderables(new vector<unique_ptr<SurfaceRenderable>>())
+    : GLDisplay(parent), m_axis(new Axis()), m_surfaceRenderables(new vector<unique_ptr<SurfaceRenderable>>())
 {
 }
 
@@ -34,13 +32,11 @@ void GLScene::initializeGL()
   newSurface->init(m_glFunctions);
   //  newSurface->createBall(1);
   //    newSurface->loadObj("../Suzanne.obj");
-  string func1("f(u,v) = sin(3.14 * u ^ (v + 1))");
+  string func1("f(u,v) = sin(3.14 * u) * cos(3.14 *v)");
   newSurface->fillParametric(func1);
   m_surfaceRenderables->emplace_back(std::move(newSurface));
 
-  surf->init(m_glFunctions);
-  surf->createBall(1);
-
+  m_axis->init(m_glFunctions);
   m_shaderHandler->createShaders();
 }
 
@@ -51,14 +47,18 @@ void GLScene::paintGL()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glClearColor(1.0, 1.0, 1.0, 1.0);
 
-  glEnable(GL_BLEND);
-
   if (uniformsNeedUpdate)
     updateUniforms();
 
-  m_shaderHandler->bind(SHADER_TYPES::FLAT);
+  glEnable(GL_BLEND);
   for (auto it = m_surfaceRenderables->begin(); it != m_surfaceRenderables->end(); ++it)
+  {
+    m_shaderHandler->bind(SHADER_TYPES::FLAT);
     (*it)->render(m_glFunctions);
+
+    m_shaderHandler->bind(SHADER_TYPES::BLACK);
+    (*it)->renderSkeleton(m_glFunctions);
+  }
 
   glDisable(GL_BLEND);
   //  m_shaderHandler->bind(SHADER_TYPES::NORMAL);
@@ -68,5 +68,5 @@ void GLScene::paintGL()
   //  m_displayObjects->ball()->renderSkeleton(m_glFunctions);
 
   m_shaderHandler->bind(SHADER_TYPES::FLAT);
-  //  m_displayObjects->axis()->render(m_glFunctions);
+  m_axis->render(m_glFunctions);
 }

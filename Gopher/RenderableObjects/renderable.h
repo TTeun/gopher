@@ -4,7 +4,6 @@
 #include <QOpenGLFunctions_4_1_Core>
 namespace Surface
 {
-
   class GLWindow;
 
   class Renderable

@@ -18,6 +18,7 @@ public:
   Surface::SurfaceRenderable *surf;
 
 private:
+  std::unique_ptr<Surface::Axis> m_axis;
   std::unique_ptr<std::vector<std::unique_ptr<Surface::SurfaceRenderable>>> m_surfaceRenderables;
 };
 
