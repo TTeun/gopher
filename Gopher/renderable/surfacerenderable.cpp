@@ -211,13 +211,15 @@ namespace Surface
     glFunctions->glDrawElements(GL_LINES, m_indices->size(), GL_UNSIGNED_INT, 0);
   }
 
-  void SurfaceRenderable::fillParametric(
-      std::string &func, double u_min, double u_max, double v_min, double v_max, double d_u, double d_v)
+  void SurfaceRenderable::fillParametric(std::string &func,
+                                         double u_min,
+                                         double u_max,
+                                         double v_min,
+                                         double v_max,
+                                         double u_steps,
+                                         double v_steps)
   {
     clear();
-    if (d_u == 0 || d_v == 0)
-      throw string{"Increment of zero size!"};
-
     auto first = func.begin();
     auto end   = func.end();
     auto expr  = Parser::expression();
@@ -227,23 +229,25 @@ namespace Surface
                                         boost::spirit::ascii::space,
                                         expr))
     {
+      if (u_max <= u_min || v_max <= v_min)
+        throw string{"Empty parameter domain!"};
+
       expr.syntax_tree.type = Parser::collapse(expr.syntax_tree.type);
       double val1;
 
-      QElapsedTimer timer;
-      timer.start();
-
       double u = u_min, v = v_min;
-      size_t u_steps = (u_max - u_min) / d_u;
-      size_t v_steps = (v_max - v_min) / d_v;
+      float d_u = (u_max - u_min) / static_cast<float>(u_steps);
+      float d_v = (v_max - v_min) / static_cast<float>(v_steps);
 
       double max = numeric_limits<double>::min();
       double min = numeric_limits<double>::max();
 
-      for (size_t u_step = 0; u_step != u_steps; ++u_step)
+      QElapsedTimer timer;
+      timer.start();
+      for (size_t u_index = 0; u_index != u_steps + 1; ++u_index)
       {
         v = v_min;
-        for (size_t v_step = 0; v_step != v_steps; ++v_step)
+        for (size_t v_index = 0; v_index != v_steps + 1; ++v_index)
         {
           val1 = Parser::eval(expr.syntax_tree.type, make_pair("u", u), make_pair("v", v));
           max  = max > val1 ? max : val1;
@@ -254,30 +258,32 @@ namespace Surface
         }
         u += d_u;
       }
+      qDebug() << "Parametric surface evaluation operation took" << timer.elapsed() << "milliseconds";
+
       max = max > 4.0 ? 4.0 : max;
       min = min < -4.0 ? -4.0 : min;
       if (max == min)
       {
         max = 1.0;
-        min = -1.0;
+        min = 0;
       }
-      for (size_t u_step = 1; u_step != u_steps; ++u_step)
-      {
-        for (size_t v_step = 1; v_step != v_steps; ++v_step)
-        {
-          m_indices->append(u_steps * (v_step - 1) + u_step - 1);
-          m_indices->append(u_steps * (v_step - 1) + u_step);
-          m_indices->append(u_steps * (v_step) + u_step - 1);
 
-          m_indices->append(u_steps * (v_step - 1) + u_step);
-          m_indices->append(u_steps * (v_step) + u_step);
-          m_indices->append(u_steps * (v_step) + u_step - 1);
-        }
-      }
       for (auto &pos : *m_vertices)
         m_colors->append((pos[2] - min) / (max - min) * QVector3D(0.86, 0.95, 0.96));
 
-      qDebug() << "Parametric surface evaluation operation took" << timer.elapsed() << "milliseconds";
+      for (size_t u_index = 0; u_index != u_steps; ++u_index)
+      {
+        for (size_t v_index = 0; v_index != v_steps; ++v_index)
+        {
+          m_indices->append(v_index + u_index * (v_steps + 1));
+          m_indices->append(v_index + 1 + u_index * (v_steps + 1));
+          m_indices->append(v_index + (u_index + 1) * (v_steps + 1));
+
+          m_indices->append(v_index + 1 + u_index * (v_steps + 1));
+          m_indices->append(v_index + 1 + (u_index + 1) * (v_steps + 1));
+          m_indices->append(v_index + (u_index + 1) * (v_steps + 1));
+        }
+      }
     }
     else
     {

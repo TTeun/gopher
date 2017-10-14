@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>294</width>
+    <width>306</width>
     <height>107</height>
    </rect>
   </property>
@@ -42,16 +42,6 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="5">
-    <widget class="QDoubleSpinBox" name="uIncrement">
-     <property name="singleStep">
-      <double>0.050000000000000</double>
-     </property>
-     <property name="value">
-      <double>0.100000000000000</double>
      </property>
     </widget>
    </item>
@@ -107,20 +97,36 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="5">
-    <widget class="QDoubleSpinBox" name="vIncrement">
-     <property name="singleStep">
-      <double>0.050000000000000</double>
-     </property>
-     <property name="value">
-      <double>0.100000000000000</double>
-     </property>
-    </widget>
-   </item>
    <item row="4" column="5">
     <widget class="QPushButton" name="colorButton">
      <property name="text">
       <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="5">
+    <widget class="QSpinBox" name="uStepsSpinbox">
+     <property name="minimum">
+      <number>2</number>
+     </property>
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+     <property name="value">
+      <number>100</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5">
+    <widget class="QSpinBox" name="vStepsSpinbox">
+     <property name="minimum">
+      <number>2</number>
+     </property>
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+     <property name="value">
+      <number>100</number>
      </property>
     </widget>
    </item>

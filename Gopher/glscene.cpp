@@ -48,8 +48,12 @@ void GLScene::paintGL()
   glDepthFunc(GL_LEQUAL);
   for (auto it = m_surfaceRenderables->begin(); it != m_surfaceRenderables->end(); ++it)
   {
+    glDepthFunc(GL_LESS);
     m_shaderHandler->bind(SHADER_TYPES::BLACK);
     (*it)->surface()->renderSkeleton(m_glFunctions);
+
+    glEnable(GL_POLYGON_OFFSET_FILL);
+    glPolygonOffset(1.0f, 1.0f);
 
     m_shaderHandler->bind(SHADER_TYPES::FLAT);
     (*it)->surface()->render(m_glFunctions);

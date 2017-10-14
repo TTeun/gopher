@@ -10,12 +10,12 @@ SurfaceWidget::SurfaceWidget(QWidget *parent)
 {
   ui->setupUi(this);
   connect(ui->equationLine, SIGNAL(editingFinished()), this, SLOT(equationChanged()));
-  connect(ui->var1Min, SIGNAL(valueChanged(double)), this, SLOT(equationChanged()));
-  connect(ui->var1Max, SIGNAL(valueChanged(double)), this, SLOT(equationChanged()));
-  connect(ui->var2Min, SIGNAL(valueChanged(double)), this, SLOT(equationChanged()));
-  connect(ui->var2Max, SIGNAL(valueChanged(double)), this, SLOT(equationChanged()));
-  connect(ui->uIncrement, SIGNAL(valueChanged(double)), this, SLOT(equationChanged()));
-  connect(ui->vIncrement, SIGNAL(valueChanged(double)), this, SLOT(equationChanged()));
+  connect(ui->var1Min, SIGNAL(editingFinished()), this, SLOT(equationChanged()));
+  connect(ui->var1Max, SIGNAL(editingFinished()), this, SLOT(equationChanged()));
+  connect(ui->var2Min, SIGNAL(editingFinished()), this, SLOT(equationChanged()));
+  connect(ui->var2Max, SIGNAL(editingFinished()), this, SLOT(equationChanged()));
+  connect(ui->uStepsSpinbox, SIGNAL(editingFinished()), this, SLOT(equationChanged()));
+  connect(ui->vStepsSpinbox, SIGNAL(editingFinished()), this, SLOT(equationChanged()));
 
   ui->colorButton->setStyleSheet("background: red");
 }
@@ -45,8 +45,8 @@ void SurfaceWidget::equationChanged()
                               ui->var1Max->value(),
                               ui->var2Min->value(),
                               ui->var2Max->value(),
-                              ui->uIncrement->value(),
-                              ui->vIncrement->value());
+                              ui->uStepsSpinbox->value(),
+                              ui->vStepsSpinbox->value());
   }
   catch (std::string &e)
   {

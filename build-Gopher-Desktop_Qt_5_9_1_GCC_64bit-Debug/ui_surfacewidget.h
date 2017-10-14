@@ -19,6 +19,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -31,19 +32,19 @@ public:
     QLabel *label_3;
     QLabel *label;
     QLineEdit *equationLine;
-    QDoubleSpinBox *uIncrement;
     QDoubleSpinBox *var2Min;
     QDoubleSpinBox *var1Min;
     QDoubleSpinBox *var2Max;
     QDoubleSpinBox *var1Max;
-    QDoubleSpinBox *vIncrement;
     QPushButton *colorButton;
+    QSpinBox *uStepsSpinbox;
+    QSpinBox *vStepsSpinbox;
 
     void setupUi(QWidget *SurfaceWidget)
     {
         if (SurfaceWidget->objectName().isEmpty())
             SurfaceWidget->setObjectName(QStringLiteral("SurfaceWidget"));
-        SurfaceWidget->resize(294, 107);
+        SurfaceWidget->resize(306, 107);
         gridLayout = new QGridLayout(SurfaceWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         label_4 = new QLabel(SurfaceWidget);
@@ -70,13 +71,6 @@ public:
         equationLine->setSizePolicy(sizePolicy);
 
         gridLayout->addWidget(equationLine, 4, 3, 1, 2);
-
-        uIncrement = new QDoubleSpinBox(SurfaceWidget);
-        uIncrement->setObjectName(QStringLiteral("uIncrement"));
-        uIncrement->setSingleStep(0.05);
-        uIncrement->setValue(0.1);
-
-        gridLayout->addWidget(uIncrement, 0, 5, 1, 1);
 
         var2Min = new QDoubleSpinBox(SurfaceWidget);
         var2Min->setObjectName(QStringLiteral("var2Min"));
@@ -110,17 +104,26 @@ public:
 
         gridLayout->addWidget(var1Max, 0, 4, 1, 1);
 
-        vIncrement = new QDoubleSpinBox(SurfaceWidget);
-        vIncrement->setObjectName(QStringLiteral("vIncrement"));
-        vIncrement->setSingleStep(0.05);
-        vIncrement->setValue(0.1);
-
-        gridLayout->addWidget(vIncrement, 1, 5, 1, 1);
-
         colorButton = new QPushButton(SurfaceWidget);
         colorButton->setObjectName(QStringLiteral("colorButton"));
 
         gridLayout->addWidget(colorButton, 4, 5, 1, 1);
+
+        uStepsSpinbox = new QSpinBox(SurfaceWidget);
+        uStepsSpinbox->setObjectName(QStringLiteral("uStepsSpinbox"));
+        uStepsSpinbox->setMinimum(2);
+        uStepsSpinbox->setMaximum(1000);
+        uStepsSpinbox->setValue(100);
+
+        gridLayout->addWidget(uStepsSpinbox, 0, 5, 1, 1);
+
+        vStepsSpinbox = new QSpinBox(SurfaceWidget);
+        vStepsSpinbox->setObjectName(QStringLiteral("vStepsSpinbox"));
+        vStepsSpinbox->setMinimum(2);
+        vStepsSpinbox->setMaximum(1000);
+        vStepsSpinbox->setValue(100);
+
+        gridLayout->addWidget(vStepsSpinbox, 1, 5, 1, 1);
 
 
         retranslateUi(SurfaceWidget);
