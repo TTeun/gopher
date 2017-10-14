@@ -14,33 +14,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>u</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>f(u,v) =</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
-    <widget class="QDoubleSpinBox" name="var2Max">
-     <property name="minimum">
-      <double>-1000.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>1000.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>3.000000000000000</double>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
@@ -48,20 +21,21 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" colspan="2">
-    <widget class="QDoubleSpinBox" name="var1Min">
-     <property name="minimum">
-      <double>-1000.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>1000.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>-3.000000000000000</double>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>u</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="2" colspan="3">
+   <item row="4" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>f(u,v) =</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="3" colspan="2">
     <widget class="QLineEdit" name="equationLine">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -71,7 +45,17 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" colspan="2">
+   <item row="0" column="5">
+    <widget class="QDoubleSpinBox" name="uIncrement">
+     <property name="singleStep">
+      <double>0.050000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="3">
     <widget class="QDoubleSpinBox" name="var2Min">
      <property name="minimum">
       <double>-1000.000000000000000</double>
@@ -84,17 +68,33 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="4">
-    <widget class="QDoubleSpinBox" name="uIncrement">
-     <property name="singleStep">
-      <double>0.050000000000000</double>
+   <item row="0" column="1" colspan="3">
+    <widget class="QDoubleSpinBox" name="var1Min">
+     <property name="minimum">
+      <double>-1000.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
      </property>
      <property name="value">
-      <double>0.100000000000000</double>
+      <double>-3.000000000000000</double>
      </property>
     </widget>
    </item>
-   <item row="0" column="3">
+   <item row="1" column="4">
+    <widget class="QDoubleSpinBox" name="var2Max">
+     <property name="minimum">
+      <double>-1000.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>3.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4">
     <widget class="QDoubleSpinBox" name="var1Max">
      <property name="minimum">
       <double>-1000.000000000000000</double>
@@ -107,13 +107,20 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="4">
+   <item row="1" column="5">
     <widget class="QDoubleSpinBox" name="vIncrement">
      <property name="singleStep">
       <double>0.050000000000000</double>
      </property>
      <property name="value">
       <double>0.100000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="5">
+    <widget class="QPushButton" name="colorButton">
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </item>

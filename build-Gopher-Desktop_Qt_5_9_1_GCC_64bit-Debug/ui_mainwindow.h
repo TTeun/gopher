@@ -18,7 +18,6 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "glscene.h"
@@ -36,7 +35,6 @@ public:
     QMenu *menuGopher;
     QMenu *menuObjects;
     QStatusBar *statusBar;
-    QToolBar *mainToolBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -68,9 +66,6 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
-        mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
 
         menuBar->addAction(menuGopher->menuAction());
         menuBar->addAction(menuObjects->menuAction());

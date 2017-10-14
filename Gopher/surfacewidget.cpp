@@ -1,5 +1,6 @@
 #include "surfacewidget.h"
 #include "ui_surfacewidget.h"
+#include <QColorDialog>
 #include <string>
 
 using namespace Surface;
@@ -15,6 +16,8 @@ SurfaceWidget::SurfaceWidget(QWidget *parent)
   connect(ui->var2Max, SIGNAL(valueChanged(double)), this, SLOT(equationChanged()));
   connect(ui->uIncrement, SIGNAL(valueChanged(double)), this, SLOT(equationChanged()));
   connect(ui->vIncrement, SIGNAL(valueChanged(double)), this, SLOT(equationChanged()));
+
+  ui->colorButton->setStyleSheet("background: red");
 }
 
 SurfaceWidget::~SurfaceWidget()
