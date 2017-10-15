@@ -1,6 +1,6 @@
 #include "surfacewidget.h"
 #include "ui_surfacewidget.h"
-#include <QColorDialog>
+#include <QLineEdit>
 #include <string>
 
 using namespace Surface;
@@ -17,7 +17,13 @@ SurfaceWidget::SurfaceWidget(QWidget *parent)
   connect(ui->uStepsSpinbox, SIGNAL(editingFinished()), this, SLOT(equationChanged()));
   connect(ui->vStepsSpinbox, SIGNAL(editingFinished()), this, SLOT(equationChanged()));
 
+  connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(updateSizes(int)));
+
   ui->colorButton->setStyleSheet("background: red");
+
+  ui->equationLine->hide();
+  QLineEdit *q = new QLineEdit(this);
+  layout()->addWidget(q);
 }
 
 SurfaceWidget::~SurfaceWidget()
@@ -52,4 +58,17 @@ void SurfaceWidget::equationChanged()
   {
     qDebug() << e.c_str();
   }
+}
+
+void SurfaceWidget::updateSizes(int index)
+{
+  for (int i = 0; i < ui->tabWidget->count(); i++)
+    if (i != index)
+      ui->tabWidget->widget(i)->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+
+  ui->tabWidget->widget(index)->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  ui->tabWidget->widget(index)->resize(ui->tabWidget->widget(index)->minimumSizeHint());
+  ui->tabWidget->widget(index)->adjustSize();
+  resize(minimumSizeHint());
+  adjustSize();
 }

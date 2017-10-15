@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "equationwidget.h"
 #include "gldisplay.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
@@ -12,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
   ui->openGLWidget->setMainWindowLayout(this->layout());
   setCentralWidget(ui->openGLWidget);
   connect(ui->addObjectMenuItem, SIGNAL(triggered()), this, SLOT(addObject()));
+
+  layout()->addWidget(new EquationWidget(this));
 }
 
 MainWindow::~MainWindow()

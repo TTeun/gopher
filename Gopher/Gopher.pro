@@ -36,7 +36,8 @@ SOURCES += \
     parser/collapse.cpp \
     parser/partialcollapse.cpp \
     glscene.cpp \
-    surfacewidget.cpp
+    surfacewidget.cpp \
+    equationwidget.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -51,7 +52,8 @@ HEADERS += \
     parser/collapse.h \
     parser/partialcollapse.h \
     glscene.h \
-    surfacewidget.h
+    surfacewidget.h \
+    equationwidget.h
 
 
 FORMS += \

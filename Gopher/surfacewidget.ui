@@ -6,127 +6,194 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>306</width>
-    <height>107</height>
+    <width>312</width>
+    <height>161</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>v</string>
+   <item row="4" column="0" colspan="4">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Tab 1</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="1">
+        <widget class="QDoubleSpinBox" name="var1Min">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimum">
+          <double>-1000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>1000.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>-3.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>u</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QSpinBox" name="uStepsSpinbox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimum">
+          <number>2</number>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+         <property name="value">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QDoubleSpinBox" name="var1Max">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimum">
+          <double>-1000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>1000.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>3.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>v</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QSpinBox" name="vStepsSpinbox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimum">
+          <number>2</number>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+         <property name="value">
+          <number>100</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="var2Min">
+         <property name="minimum">
+          <double>-1000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>1000.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>-3.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QDoubleSpinBox" name="var2Max">
+         <property name="minimum">
+          <double>-1000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>1000.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>3.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Tab 2</string>
+      </attribute>
+     </widget>
     </widget>
    </item>
    <item row="0" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>u</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="2">
     <widget class="QLabel" name="label">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string>f(u,v) =</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="3" colspan="2">
-    <widget class="QLineEdit" name="equationLine">
+   <item row="0" column="3">
+    <widget class="QPushButton" name="colorButton">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+      <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-    </widget>
-   </item>
-   <item row="1" column="1" colspan="3">
-    <widget class="QDoubleSpinBox" name="var2Min">
-     <property name="minimum">
-      <double>-1000.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>1000.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>-3.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1" colspan="3">
-    <widget class="QDoubleSpinBox" name="var1Min">
-     <property name="minimum">
-      <double>-1000.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>1000.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>-3.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="4">
-    <widget class="QDoubleSpinBox" name="var2Max">
-     <property name="minimum">
-      <double>-1000.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>1000.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>3.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="4">
-    <widget class="QDoubleSpinBox" name="var1Max">
-     <property name="minimum">
-      <double>-1000.000000000000000</double>
-     </property>
-     <property name="maximum">
-      <double>1000.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>3.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="5">
-    <widget class="QPushButton" name="colorButton">
      <property name="text">
       <string/>
      </property>
     </widget>
    </item>
-   <item row="0" column="5">
-    <widget class="QSpinBox" name="uStepsSpinbox">
-     <property name="minimum">
-      <number>2</number>
-     </property>
-     <property name="maximum">
-      <number>1000</number>
-     </property>
-     <property name="value">
-      <number>100</number>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="5">
-    <widget class="QSpinBox" name="vStepsSpinbox">
-     <property name="minimum">
-      <number>2</number>
-     </property>
-     <property name="maximum">
-      <number>1000</number>
-     </property>
-     <property name="value">
-      <number>100</number>
+   <item row="0" column="1" colspan="2">
+    <widget class="QLineEdit" name="equationLine">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
     </widget>
    </item>

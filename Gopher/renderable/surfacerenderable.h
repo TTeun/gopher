@@ -27,9 +27,9 @@ namespace Surface
 
     void init(QOpenGLFunctions_4_1_Core *glFunctions) override;
     void render(QOpenGLFunctions_4_1_Core *ui) override;
+    void renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions);
     void loadObj(const char *filename);
     void createBall(float radius);
-    void renderSkeleton(QOpenGLFunctions_4_1_Core *glFunctions);
     void fillParametric(std::string &func1,
                         double u_min,
                         double u_max,
@@ -38,10 +38,9 @@ namespace Surface
                         double u_steps,
                         double v_steps);
 
-  protected:
-    void createBuffers(QOpenGLFunctions_4_1_Core *ui) override;
-
   private:
+    void createBuffers(QOpenGLFunctions_4_1_Core *ui) override;
+    void fillIndicesParametric(size_t u_steps, size_t v_steps);
     std::unique_ptr<QVector<QVector3D>> m_vertices;
     std::unique_ptr<QVector<QVector3D>> m_colors;
     std::unique_ptr<QVector<QVector3D>> m_normals;

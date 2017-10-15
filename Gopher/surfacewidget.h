@@ -22,6 +22,7 @@ public:
 
 private slots:
   void equationChanged();
+  void updateSizes(int index);
 
 private:
   Ui::SurfaceWidget *ui;

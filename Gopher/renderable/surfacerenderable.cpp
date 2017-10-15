@@ -271,23 +271,28 @@ namespace Surface
       for (auto &pos : *m_vertices)
         m_colors->append((pos[2] - min) / (max - min) * QVector3D(0.86, 0.95, 0.96));
 
-      for (size_t u_index = 0; u_index != u_steps; ++u_index)
-      {
-        for (size_t v_index = 0; v_index != v_steps; ++v_index)
-        {
-          m_indices->append(v_index + u_index * (v_steps + 1));
-          m_indices->append(v_index + 1 + u_index * (v_steps + 1));
-          m_indices->append(v_index + (u_index + 1) * (v_steps + 1));
-
-          m_indices->append(v_index + 1 + u_index * (v_steps + 1));
-          m_indices->append(v_index + 1 + (u_index + 1) * (v_steps + 1));
-          m_indices->append(v_index + (u_index + 1) * (v_steps + 1));
-        }
-      }
+      fillIndicesParametric(u_steps, v_steps);
     }
     else
     {
       throw string{"Parse Error"};
+    }
+  }
+
+  void SurfaceRenderable::fillIndicesParametric(size_t u_steps, size_t v_steps)
+  {
+    for (size_t u_index = 0; u_index != u_steps; ++u_index)
+    {
+      for (size_t v_index = 0; v_index != v_steps; ++v_index)
+      {
+        m_indices->append(v_index + u_index * (v_steps + 1));
+        m_indices->append(v_index + 1 + u_index * (v_steps + 1));
+        m_indices->append(v_index + (u_index + 1) * (v_steps + 1));
+
+        m_indices->append(v_index + 1 + u_index * (v_steps + 1));
+        m_indices->append(v_index + 1 + (u_index + 1) * (v_steps + 1));
+        m_indices->append(v_index + (u_index + 1) * (v_steps + 1));
+      }
     }
   }
 }
