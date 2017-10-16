@@ -58,7 +58,7 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
-    surfacewidget.ui
+    equationwidget.ui
 
 RESOURCES += \
       resources.qrc

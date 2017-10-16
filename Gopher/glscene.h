@@ -1,11 +1,13 @@
 #ifndef GLSCENE_H
 #define GLSCENE_H
 
+#include "equationwidget.h"
 #include "gldisplay.h"
 #include "surfacewidget.h"
-#include <QLayout>
 #include <memory>
 #include <vector>
+
+class MainWindow;
 
 class GLScene : public GLDisplay
 {
@@ -16,15 +18,14 @@ public:
   void initializeGL();
   void paintGL();
   void requestNewSurfaceRendearble();
-  SurfaceWidget *addSurfaceWidget();
-  void setMainWindowLayout(QLayout *layout);
+  void setMainWindow(MainWindow *mainWindow);
 
 private:
-  QLayout *m_mainWindowLayout;
+  MainWindow *m_mainWindow;
   bool m_needsNewSurfaaceRenderable = false;
   void addSurfaceRenderable();
   std::unique_ptr<Surface::Axis> m_axis;
-  std::unique_ptr<std::vector<SurfaceWidget *>> m_surfaceRenderables;
+  std::unique_ptr<std::vector<EquationWidget *>> m_surfaceRenderables;
 };
 
 #endif // GLSCENE_H

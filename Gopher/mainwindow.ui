@@ -14,7 +14,10 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="styleSheet">
+    <string notr="true">background: white</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="GLScene" name="openGLWidget"/>
     </item>
@@ -33,6 +36,7 @@
     <property name="title">
      <string>Gopher</string>
     </property>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuObjects">
     <property name="title">

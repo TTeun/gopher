@@ -13,12 +13,12 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "glscene.h"
 
@@ -29,7 +29,7 @@ class Ui_MainWindow
 public:
     QAction *addObjectMenuItem;
     QWidget *centralWidget;
-    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
     GLScene *openGLWidget;
     QMenuBar *menuBar;
     QMenu *menuGopher;
@@ -45,14 +45,15 @@ public:
         addObjectMenuItem->setObjectName(QStringLiteral("addObjectMenuItem"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        verticalLayout = new QVBoxLayout(centralWidget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        centralWidget->setStyleSheet(QStringLiteral("background: white"));
+        horizontalLayout = new QHBoxLayout(centralWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         openGLWidget = new GLScene(centralWidget);
         openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
 
-        verticalLayout->addWidget(openGLWidget);
+        horizontalLayout->addWidget(openGLWidget);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -69,6 +70,7 @@ public:
 
         menuBar->addAction(menuGopher->menuAction());
         menuBar->addAction(menuObjects->menuAction());
+        menuGopher->addSeparator();
         menuObjects->addAction(addObjectMenuItem);
 
         retranslateUi(MainWindow);

@@ -1,4 +1,7 @@
 #include "glscene.h"
+#include "equationwidget.h"
+#include "mainwindow.h"
+#include <QLayout>
 #include <utility>
 
 using namespace Surface;
@@ -6,7 +9,7 @@ using namespace Shader;
 using namespace std;
 
 GLScene::GLScene(QWidget *parent)
-    : GLDisplay(parent), m_axis(new Axis()), m_surfaceRenderables(new vector<SurfaceWidget *>())
+    : GLDisplay(parent), m_axis(new Axis()), m_surfaceRenderables(new vector<EquationWidget *>())
 {
   qDebug() << "GLScene constructor";
 }
@@ -47,17 +50,7 @@ void GLScene::paintGL()
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);
   for (auto it = m_surfaceRenderables->begin(); it != m_surfaceRenderables->end(); ++it)
-  {
-    glDepthFunc(GL_LESS);
-    m_shaderHandler->bind(SHADER_TYPES::BLACK);
-    (*it)->surface()->renderSkeleton(m_glFunctions);
-
-    glEnable(GL_POLYGON_OFFSET_FILL);
-    glPolygonOffset(1.0f, 1.0f);
-
-    m_shaderHandler->bind(SHADER_TYPES::FLAT);
-    (*it)->surface()->render(m_glFunctions);
-  }
+    (*it)->render(m_glFunctions, m_shaderHandler);
 
   glDisable(GL_DEPTH_TEST);
   m_shaderHandler->bind(SHADER_TYPES::FLAT);
@@ -69,16 +62,16 @@ void GLScene::requestNewSurfaceRendearble()
   m_needsNewSurfaaceRenderable = true;
 }
 
-void GLScene::setMainWindowLayout(QLayout *layout)
+void GLScene::setMainWindow(MainWindow *mainWindow)
 {
-  m_mainWindowLayout = layout;
+  m_mainWindow = mainWindow;
 }
 
 void GLScene::addSurfaceRenderable()
 {
-  auto *s = new SurfaceWidget(m_mainWindowLayout->widget());
+  auto *s = new EquationWidget(nullptr);
   s->surface()->init(m_glFunctions);
-  m_mainWindowLayout->addWidget(s);
+  m_mainWindow->surfaceWidgetWasAdded(s);
 
   m_surfaceRenderables->emplace_back(std::move(s));
 }
